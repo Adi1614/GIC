@@ -1,0 +1,119 @@
+[gd_scene load_steps=10 format=3 uid="uid://ckkwdoj7vpe0d"]
+
+[ext_resource type="Script" uid="uid://bi1owb6bammqn" path="res://Characters/Enemy/enemy.gd" id="1_5anih"]
+[ext_resource type="Script" uid="uid://dkc1man884b1s" path="res://state_machine/state_machine.gd" id="2_1h0du"]
+[ext_resource type="AudioStream" uid="uid://cx6mq8gxrgt67" path="res://Assets/Sounds/FootStep/678714__kinniekindaceline__foot-step.wav" id="2_m542x"]
+[ext_resource type="PackedScene" uid="uid://by7hxbd5uh0c" path="res://Characters/Enemy/enemy_model.tscn" id="3_y5vj3"]
+[ext_resource type="Script" uid="uid://bun1hc2m6hugd" path="res://Characters/Enemy/states/state_roaming.gd" id="4_s81n7"]
+[ext_resource type="Script" uid="uid://4illq10xs5wy" path="res://Characters/Enemy/states/state_chasing.gd" id="5_gc7sf"]
+[ext_resource type="Script" uid="uid://8p0w6bh31y7f" path="res://Characters/Enemy/states/state_searching.gd" id="7_2fq87"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qjb43"]
+height = 1.4970703
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_l0tcs"]
+random_pitch = 1.2
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("2_m542x")
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
+script = ExtResource("1_5anih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2614648, 0)
+shape = SubResource("CylinderShape3D_qjb43")
+
+[node name="StepSoundPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_l0tcs")
+
+[node name="EnemyModel" parent="." instance=ExtResource("3_y5vj3")]
+unique_name_in_owner = true
+
+[node name="Skeleton3D" parent="EnemyModel/Armature" index="0"]
+bones/0/position = Vector3(0.7748787, -3.952892, -25.973045)
+bones/0/rotation = Quaternion(-0.48008, -0.45298728, -0.5236858, 0.53858984)
+bones/1/rotation = Quaternion(0.008208426, 0.0050598257, -0.16680701, 0.9859424)
+bones/2/rotation = Quaternion(-0.013778002, -0.03319294, -0.08918245, 0.9953667)
+bones/3/rotation = Quaternion(-0.005932582, -0.029774003, -0.091449514, 0.99534684)
+bones/4/rotation = Quaternion(0.025928134, 0.066805035, 0.30896372, 0.94837034)
+bones/5/rotation = Quaternion(-0.026816024, -0.16700351, 0.29199904, 0.94134337)
+bones/7/rotation = Quaternion(-0.12722847, -0.7724087, 0.6030482, -0.15339719)
+bones/8/position = Vector3(2.1276298e-06, 8.854406, 1.8340363e-06)
+bones/8/rotation = Quaternion(0.5270669, -0.20704752, 0.094841704, 0.81874096)
+bones/9/rotation = Quaternion(-0.3319462, -0.06331665, 0.6443101, 0.68605196)
+bones/10/rotation = Quaternion(-0.63286275, -0.43115866, 0.10465635, 0.63453454)
+bones/11/rotation = Quaternion(0.29944625, 0.021425746, 0.08786622, 0.94981706)
+bones/12/rotation = Quaternion(0.023414224, -0.005550153, -0.014754498, 0.9996016)
+bones/13/position = Vector3(-0.5761026, 4.562604, -1.3889041e-06)
+bones/13/rotation = Quaternion(-0.14593536, 0.0022037441, 0.053146694, 0.9878631)
+bones/14/position = Vector3(1.8812346, 4.2955756, 1.4433384e-06)
+bones/15/rotation = Quaternion(0.15874475, -0.044051476, 0.04535969, 0.985293)
+bones/16/position = Vector3(0.98787147, 6.395238, -4.0420377e-07)
+bones/16/rotation = Quaternion(0.6300876, 0.013276688, -0.10651178, 0.76906997)
+bones/17/position = Vector3(-0.010065854, 6.3451886, -5.3151643e-06)
+bones/17/rotation = Quaternion(0.8177492, 0.16950367, -0.24343789, 0.49324718)
+bones/18/position = Vector3(-0.97780955, 6.074076, 5.038687e-06)
+bones/19/rotation = Quaternion(0.081366085, 0.02870104, -0.09795857, 0.9914434)
+bones/20/rotation = Quaternion(0.88547695, 0.031434745, -0.12862204, 0.44542)
+bones/21/rotation = Quaternion(0.86752343, 0.29966593, -0.12732291, 0.37602174)
+bones/23/rotation = Quaternion(0.6948186, 0.11434939, -0.10020152, 0.70293033)
+bones/24/rotation = Quaternion(-0.047471955, 0.949533, 0.16729638, -0.26104707)
+bones/25/rotation = Quaternion(-0.86240166, 0.41206563, 0.16621199, -0.24256714)
+bones/26/position = Vector3(-1.7118498e-07, 33.434746, 7.0060064e-06)
+bones/26/rotation = Quaternion(-0.3994295, 0.43291318, 0.002177991, 0.8081074)
+bones/27/rotation = Quaternion(0.21778975, -0.010383071, -0.14154454, 0.96562153)
+bones/28/position = Vector3(1.4630808, 2.9299572, -1.914118e-06)
+bones/28/rotation = Quaternion(0.07805442, -0.111242756, 0.019480793, 0.99053174)
+bones/29/rotation = Quaternion(0.027178938, -0.44265297, 0.105803095, 0.8900143)
+bones/30/position = Vector3(-1.7777158, 3.5821068, 4.4781004e-06)
+bones/31/position = Vector3(3.4641163, 6.4564247, 0.2729681)
+bones/31/rotation = Quaternion(0.02150007, -0.0031989191, -0.063712195, 0.9977316)
+bones/32/rotation = Quaternion(0.16548452, 0.0046104128, 0.009912246, 0.9861518)
+bones/33/position = Vector3(0.1315335, 6.122811, -2.47951e-06)
+bones/33/rotation = Quaternion(0.14224096, 0.00051258237, 0.003445001, 0.9898259)
+bones/34/position = Vector3(1.150697, 5.9375424, -1.9960996e-06)
+bones/35/position = Vector3(-1.1547049, 7.684673, 0.004374091)
+bones/35/rotation = Quaternion(0.077349536, -0.045963395, 0.11007569, 0.98984236)
+bones/36/position = Vector3(-2.0290885, 5.3455243, 1.4823204e-06)
+bones/36/rotation = Quaternion(0.34174633, 0.0038006536, -0.011364525, 0.9397158)
+bones/37/rotation = Quaternion(0.52712166, -0.051168725, 0.012818621, 0.84815097)
+bones/39/rotation = Quaternion(0.1344774, -0.48342472, 0.5162405, -0.6940549)
+bones/40/rotation = Quaternion(0.72532547, 0.28745005, -0.5567106, 0.28521705)
+bones/41/rotation = Quaternion(0.2553355, -0.63784677, 0.7263701, -0.018487968)
+bones/42/rotation = Quaternion(-0.006416213, -0.05521196, -0.083388, 0.9949658)
+bones/44/rotation = Quaternion(-0.1526067, 0.570495, 0.43066943, -0.6824739)
+bones/45/rotation = Quaternion(-0.707024, -0.11596348, -0.6151635, 0.32900366)
+bones/46/rotation = Quaternion(0.7010351, 0.11582924, 0.36857703, 0.5994033)
+bones/47/rotation = Quaternion(0.433471, 0.063572325, 0.019368036, 0.89871377)
+
+[node name="Eye" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.27178, 0)
+
+[node name="EyeRayCast" type="RayCast3D" parent="Eye"]
+unique_name_in_owner = true
+enabled = false
+target_position = Vector3(0, 0, -1)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+path_desired_distance = 0.3
+target_desired_distance = 0.6
+debug_enabled = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_1h0du")
+initial_state = NodePath("Roaming")
+
+[node name="Roaming" type="Node" parent="StateMachine"]
+script = ExtResource("4_s81n7")
+_roaming_speed = 3.0
+
+[node name="Chasing" type="Node" parent="StateMachine"]
+script = ExtResource("5_gc7sf")
+
+[node name="Searching" type="Node" parent="StateMachine"]
+script = ExtResource("7_2fq87")
+
+[editable path="EnemyModel"]

@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=4 uid="uid://bkmavudd7o7ga"]
+
+[ext_resource type="Texture2D" uid="uid://cmcoi8aak5twk" path="res://assets/hospital_Ceiling_1_BaseColor.png" id="1_gg4t5"]
+[ext_resource type="Texture2D" uid="uid://crdh7kc453r7l" path="res://assets/hospital_Ceiling_1_Roughness.png" id="2_yw0ax"]
+[ext_resource type="Texture2D" uid="uid://cq3i5hqa0lvmr" path="res://assets/hospital_Ceiling_1_Normal.png" id="3_pegru"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_773gg"]
+resource_name = "Ceiling_1"
+cull_mode = 2
+albedo_texture = ExtResource("1_gg4t5")
+metallic_texture = ExtResource("2_yw0ax")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_yw0ax")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_pegru")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_88u7p"]
+_surfaces = [{
+"aabb": AABB(-0.9999995, 0, -1, 2, 0.1, 2),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAgABAAQAAwAEAAEAAgAFAAAABQADAAAAAgAEAAYAAgAGAAUABQAGAAQAAwAHAAQABQAEAAcABQAHAAMA"),
+"name": "Ceiling_1",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAD/////AAAAAAAAAAAAAAAA//8AAAAAAAAAAP//AAD//wAAAAAAAP///////wAA/////wAAAAD//wAA//8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_bj7r8"]
+resource_name = "hospital_Cube_005"
+_surfaces = [{
+"aabb": AABB(-0.9999995, 0, -1, 2, 0.1, 2),
+"attribute_data": PackedByteArray("3kJVlTtJJ8beQifGO0lVlQk8WZVmQlLGCTxSxmZCWZVQbez5rgcSklBtEpKuB+z5ozuCxgBCe/ejO3v3AEKCxhd6Lh/m2tB9F3rQfebaLh+9Qnv3GUmCxhlJe/e9QoLG"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_773gg"),
+"name": "Ceiling_1",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAD/////VNUAAAAAAABU1QAA//8AAFTVAAAAAP//VNX/////////vwAAAAD///+/AAD//////7///wAA////vwAAAAD///////8AAAAA//8AAAAAAAD/////AAD/////AAD//wAA/////wAAAAD///////8AAP//AAAAAAAA//8AAP//AAD/v/////////+/AAD//////7//////AAD/v////////1TV//8AAAAAVNX//wAA//9U1f////8AAFTVVFWqqlRVqqpUVaqqVFWqqv9//3//f/9//3//f/9//3//f/8//3//P/9//z//f/8//z//v/8//7//P/+//z//v////3////9/////f////3+qqlRVqqpUVaqqVFWqqlRV")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_88u7p")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nn7jt"]
+points = PackedVector3Array(1.0158731, 0.11109869, 1.0158731, -1.0158731, -0.015873015, -1.0158731, -1.0158731, -0.015873015, 1.0158731, -1.0158731, 0.11109869, -1.0158731, 1.0158731, -0.015873015, -1.0158731, -1.0158731, 0.11109869, 1.0158731, 1.0158731, -0.015873015, 1.0158731, 1.0158731, 0.11109869, -1.0158731)
+
+[node name="Ceiling_Tile" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -1, 3.2584137e-07, 0, -3.2584137e-07, -1, 0, 0, 0)
+visible = false
+mesh = SubResource("ArrayMesh_bj7r8")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_nn7jt")

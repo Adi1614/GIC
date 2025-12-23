@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+class_name Player
 
 @onready var cam = $Camera3D
 

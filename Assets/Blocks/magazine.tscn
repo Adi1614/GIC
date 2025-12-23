@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=4 uid="uid://d1ry485jjq56t"]
+
+[ext_resource type="Texture2D" uid="uid://dsyae5l0nv4ab" path="res://assets/hospital_Magazine1_Magazine_BaseColor.png" id="1_fhsbu"]
+[ext_resource type="Texture2D" uid="uid://dcjtn6xpqttlb" path="res://assets/hospital_Magazine1_Magazine_OcclusionRoughnessMetallic.png" id="2_dtofq"]
+[ext_resource type="Texture2D" uid="uid://7hwku0q7ad7y" path="res://assets/hospital_Magazine1_Magazine_Normal.png" id="3_r7sb7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3vr2"]
+resource_name = "Magazine"
+cull_mode = 2
+albedo_texture = ExtResource("1_fhsbu")
+metallic = 1.0
+metallic_texture = ExtResource("2_dtofq")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_dtofq")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_r7sb7")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_nh2jo"]
+_surfaces = [{
+"aabb": AABB(-0.1065, -0.00262, -0.1515, 0.19208974, 0.00524, 0.2652102),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"name": "Magazine",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wcm2j"]
+resource_name = "hospital_Cube_011"
+_surfaces = [{
+"aabb": AABB(-0.1065, -0.00262, -0.1515, 0.19208974, 0.00524, 0.2652102),
+"attribute_data": PackedByteArray("ss1FMYnMfHSJzEUxss18dDz3PEUS9nx0EvY8RTz3fHTk0EUxu898dLvPRTHk0Hx0PPf0ExL2NEMS9vQTPPc0Q0MwhXYEAbu5BAGFdkMwu7mMYYV2TDK7uUwyhXaMYbu5"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_x3vr2"),
+"name": "Magazine",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/////AAD///////8AAAAA//8AAAAA//////////8AAP+/AAD//////78AAP//AAD/v/////////+/VFWqqlRVqqpUVaqqVFWqqv8//7//P/+//z//v/8//7+qqlRVqqpUVaqqVFWqqlRV/3//f/9//3//f/9//3//f/9//z//f/8//3//P/9//z////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_nh2jo")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ex4if"]
+points = PackedVector3Array(-0.10860476, -0.004704762, -0.15360476, 0.089242846, 0.0037142853, 0.11580475, 0.089242846, -0.004704762, 0.11580475, 0.089242846, 0.0037142853, -0.15360476, -0.10860476, 0.0037142853, 0.11580475, -0.10860476, -0.004704762, 0.11580475, 0.089242846, -0.004704762, -0.15360476, -0.10860476, 0.0037142853, -0.15360476)
+
+[node name="Magazine" type="MeshInstance3D"]
+visible = false
+mesh = SubResource("ArrayMesh_wcm2j")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_ex4if")

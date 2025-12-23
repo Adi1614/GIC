@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://byfgf57u8ik6s"]
+
+[ext_resource type="Script" uid="uid://bmutolg2m0rew" path="res://Horn/horn.gd" id="1_n4tcf"]
+[ext_resource type="PackedScene" uid="uid://o72og3n187p4" path="res://Horn/stratosonic_horn_-_music.glb" id="2_8cr8o"]
+
+[node name="Horn" type="Node3D"]
+script = ExtResource("1_n4tcf")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_8cr8o")]

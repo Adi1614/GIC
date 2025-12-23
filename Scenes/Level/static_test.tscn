@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://ip5hha001h88"]
+
+[ext_resource type="PackedScene" uid="uid://ckkwdoj7vpe0d" path="res://Characters/Enemy/enemy.tscn" id="1_e4c0f"]
+[ext_resource type="PackedScene" uid="uid://dfdjg6qbeunvr" path="res://Characters/player/player.tscn" id="2_wpo8x"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_max7y"]
+vertices = PackedVector3Array(-4.2585297, 0.38325113, -4.6708593, -4.2585297, 0.38325113, 4.5791407, 4.2414703, 0.38325113, 4.5791407, 4.2414703, 0.38325113, -4.6708593)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_height = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_e4c0f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4c0f"]
+
+[sub_resource type="Environment" id="Environment_wpo8x"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_uqu63"]
+
+[sub_resource type="Compositor" id="Compositor_libm8"]
+
+[node name="StaticTest" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_max7y")
+
+[node name="Level" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Level"]
+transform = Transform3D(9.327609, 0, 0.7144692, 0, 0.44499996, 0, -0.64668804, 0, 10.305262, 0.004156351, 0.009924412, -0.005859375)
+mesh = SubResource("BoxMesh_e4c0f")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Level/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Level/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.9998207, 0.01893569, 0, -0.01893569, 0.9998207, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_e4c0f")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wpo8x")
+camera_attributes = SubResource("CameraAttributesPractical_uqu63")
+compositor = SubResource("Compositor_libm8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5306591, 0.8475854, 0, -0.8475854, 0.5306591, 0, 12.32187, 0)
+
+[node name="Enemy" parent="." instance=ExtResource("1_e4c0f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45676255, 5.076047)
+
+[node name="Player" parent="." instance=ExtResource("2_wpo8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5241237, -4.2396607)
+collision_layer = 1
