@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://w8imobf36tlq"]
+
+[ext_resource type="PackedScene" uid="uid://et7oxq1m0e0i" path="res://Characters/Player/player.tscn" id="1_iheil"]
+
+[sub_resource type="Gradient" id="Gradient_ncxa1"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_iheil"]
+gradient = SubResource("Gradient_ncxa1")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1ov45"]
+panorama = SubResource("GradientTexture1D_iheil")
+
+[sub_resource type="Sky" id="Sky_lscpc"]
+sky_material = SubResource("PanoramaSkyMaterial_1ov45")
+
+[sub_resource type="Environment" id="Environment_06ioy"]
+background_mode = 2
+background_energy_multiplier = 0.14
+sky = SubResource("Sky_lscpc")
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_x701m"]
+
+[node name="Level" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.41455033, 0.91002643, 0, -0.91002643, -0.41455033, 0, 25.291107, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_06ioy")
+camera_attributes = SubResource("CameraAttributesPractical_x701m")
+
+[node name="Player" parent="." instance=ExtResource("1_iheil")]
+transform = Transform3D(-0.94755113, 0, 0.31960425, 0, 1, 0, -0.31960425, 0, -0.94755113, 0.43869567, 0.53183913, -0.6406779)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.9921875)
+size = Vector3(7, 2, 10.984375)
