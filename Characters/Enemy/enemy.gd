@@ -1,93 +1,248 @@
 extends CharacterBody3D
-class_name Enemy
-
-signal reached_player
-
-@export var max_spotting_distance := 50.0
 
 var can_move = true
+var set_pos_up = false
+var set_pos_down = true
+var timer_not_start = true
 
-var screamed: bool = false
-
-var _current_speed := 0.0
-
-@onready var navigation_agent: NavigationAgent3D = %NavigationAgent3D
+# -------------------------------------------------
+# NODES
+# -------------------------------------------------
+@onready var nav: NavigationAgent3D = %NavigationAgent3D
 @onready var animation_player: AnimationPlayer = $EnemyModel/AnimationPlayer
-@onready var player: Player = get_tree().get_first_node_in_group("player")
-@onready var _eye: Node3D = %Eye
-@onready var _eye_ray_cast: RayCast3D = %EyeRayCast
+@onready var player = $"../Player"
+@onready var eye: Node3D = %Eye
+@onready var eye_ray: RayCast3D = %EyeRayCast
+@onready var timer = $"../Timer"
 
 
+# -------------------------------------------------
+# CONFIG
+# -------------------------------------------------
+@export var roam_speed := 3.0
+@export var chase_speed := 6.0
+@export var search_speed := 1.5
+
+@export var max_spotting_distance := 50.0
+@export var chase_max_time := 8.0
+@export var search_time := 6.0
+@export var path_update_delay := 0.25
+@export var catching_distance := 1.4
+
+@export var not_reach_time = 4.0
+
+# -------------------------------------------------
+# STATE
+# -------------------------------------------------
+enum STATES { ROAM, CHASE, SEARCH }
+var state: STATES = STATES.ROAM
+
+var chase_timer := 0.0
+var search_timer := 0.0
+var path_timer := 0.0
+var current_speed := 0.0
+var last_seen_player_pos: Vector3
+
+# -------------------------------------------------
+# READY
+# -------------------------------------------------
 func _ready() -> void:
-	set_physics_process(false)
 	await get_tree().physics_frame
-	set_physics_process(true)
+	timer.timeout.connect(_on_timer_timeout)
+	_pick_random_roam_target()
 
-
-func _physics_process(_delta: float) -> void:
+# -------------------------------------------------
+# PHYSICS LOOP
+# -------------------------------------------------
+func _physics_process(delta: float) -> void:
 	if not can_move:
 		return
-	
-	if navigation_agent.is_navigation_finished():
-		animation_player.play("Idle ", 0.2)
+	#_apply_gravity(delta)
+
+	match state:
+		STATES.ROAM:
+			_roam_state(delta)
+		STATES.CHASE:
+			_chase_state(delta)
+		STATES.SEARCH:
+			_search_state(delta)
+
+	_move_along_path(delta)
+
+# -------------------------------------------------
+# MOVEMENT
+# -------------------------------------------------
+func _move_along_path(delta: float) -> void:
+	if nav.is_navigation_finished():
+		velocity.x = 0
+		velocity.z = 0
+		move_and_slide()
 		return
-	
-	var next_path_position := navigation_agent.get_next_path_position()
-	
-	var where_to_look := next_path_position
-	where_to_look.y = global_position.y
-	if not where_to_look.is_equal_approx(global_position):
-		# if you want interpolation, look into quaternions and slerp()
-		# I'm just using look_at for simplicity
-		look_at(where_to_look)
-	
-	var direction := next_path_position - global_position
-	direction.y = 0.0
-	direction = direction.normalized()
-	velocity = direction * _current_speed
-	print(position)
+
+	var next_pos := nav.get_next_path_position()
+	var dir := next_pos - global_position
+	dir.y = 0
+
+	if dir.length() > 0.05:
+		dir = dir.normalized()
+		velocity.x = dir.x * current_speed
+		velocity.z = dir.z * current_speed
+		rotation.y = lerp_angle(rotation.y, atan2(-dir.x, -dir.z), 10 * delta)
+
+	else:
+		velocity.x = 0
+		velocity.z = 0
+
 	move_and_slide()
 
-
-func travel_to_position(wanted_position: Vector3, speed: float, play_run_anim := false) -> void:
-	if play_run_anim:
-		if not screamed:
-			can_move = false
-			_current_speed = 0.0
-			navigation_agent.target_position = global_position
-			var pos2d = Vector2(global_position.x, global_position.z)
-			var player_pos2d = Vector2(player.global_position.x, player.global_position.z)
-			var dir = (pos2d - player_pos2d)
-			rotation.y = lerp_angle(rotation.y, atan2(dir.x, dir.y), 10)
-			animation_player.play("Scream")
-			screamed = true
-			await animation_player.animation_finished
-		
-		animation_player.play("CrawlRun ", 0.2)
-		can_move = true
-		
+func _apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
 	else:
-		animation_player.play("Patrolling ", 0.2)
+		velocity.y = 0
+
+# -------------------------------------------------
+# ROAM
+# -------------------------------------------------
+func _roam_state(delta: float) -> void:
+	if not set_pos_down:
+		$EnemyModel.position.y = -0.099
+		$EnemyModel.rotation_degrees.z = 0.0
+		set_pos_down = true
+	if animation_player.current_animation != "Run ":
+		animation_player.play("Run ")
+	
+	if timer_not_start:
+		timer_not_start = false
+		timer.start(not_reach_time)
+	
+	current_speed = roam_speed
+
+	if nav.is_navigation_finished():
+		_pick_random_roam_target()
 		
-	navigation_agent.target_position = wanted_position
-	_current_speed = speed
+	
+	
+	
+	if is_player_in_view():
+		_start_chase()
+		#can_move = false
+		#animation_player.play("Scream")
+		#await animation_player.animation_finished
+		#can_move = true
+		#state = STATES.CHASE
+		#chase_timer = chase_max_time
 
+# -------------------------------------------------
+# CHASE
+# -------------------------------------------------
 
+func _start_chase():
+	state = STATES.CHASE
+	chase_timer = chase_max_time
+	path_timer = 0.0
+	if not set_pos_up:
+		$EnemyModel.position.y = 0.125
+		$EnemyModel.rotation_degrees.z = 20.5
+		set_pos_up = true
+	
+	can_move = false
+	if animation_player.current_animation != "Scream":
+		animation_player.play("Scream")
+	animation_player.animation_finished.connect(_on_scream_finished)
+	
+
+func _on_scream_finished(x) -> void:
+	print(x)
+	can_move = true
+
+func _chase_state(delta: float) -> void:
+	timer.stop()
+	if animation_player.current_animation != "CrawlRun ":
+		animation_player.play("CrawlRun ")
+	current_speed = chase_speed
+	chase_timer -= delta
+	path_timer -= delta
+
+	if path_timer <= 0.0:
+		path_timer = path_update_delay
+		nav.target_position = player.global_position
+
+	if not is_line_of_sight_broken():
+		chase_timer = chase_max_time
+		last_seen_player_pos = player.global_position
+
+	if chase_timer <= 0.0:
+		state = STATES.SEARCH
+		search_timer = search_time
+		nav.target_position = last_seen_player_pos
+
+	if global_position.distance_to(player.global_position) <= catching_distance:
+		print("PLAYER CAUGHT")
+
+# -------------------------------------------------
+# SEARCH
+# -------------------------------------------------
+func _search_state(delta: float) -> void:
+	if animation_player.current_animation != "Patrolling ":
+		animation_player.play("Patrolling ")
+	current_speed = search_speed
+	search_timer -= delta
+
+	if nav.is_navigation_finished():
+		_pick_search_point()
+
+	if is_player_in_view():
+		
+		state = STATES.CHASE
+		chase_timer = chase_max_time
+
+	if search_timer <= 0.0:
+		set_pos_down = false
+		set_pos_up = false
+		state = STATES.ROAM
+		_pick_random_roam_target()
+
+# -------------------------------------------------
+# TARGET PICKING
+# -------------------------------------------------
+func _pick_random_roam_target() -> void:
+	timer_not_start = true
+	var nav_map := get_world_3d().get_navigation_map()
+	var pos := NavigationServer3D.map_get_random_point(nav_map, 1, true)
+	nav.target_position = pos
+
+func _pick_search_point() -> void:
+	var offset := Vector3(
+		randf_range(-6, 6),
+		0,
+		randf_range(-6, 6)
+	)
+	nav.target_position = last_seen_player_pos + offset
+
+# -------------------------------------------------
+# VISION
+# -------------------------------------------------
 func is_player_in_view() -> bool:
-	var vec_to_player := (player.global_position - global_position)
-	
-	if vec_to_player.length() > max_spotting_distance:
+	var to_player = player.global_position - global_position
+	if to_player.length() > max_spotting_distance:
 		return false
-	
-	var in_fov := -_eye.global_basis.z.normalized().dot(vec_to_player.normalized()) > 0.3
-	
-	if in_fov:
-		return not is_line_of_sight_broken()
-	
-	return false
 
+	var fov := -eye.global_basis.z.normalized().dot(to_player.normalized()) > 0.82
+	return fov and not is_line_of_sight_broken()
 
 func is_line_of_sight_broken() -> bool:
-	_eye_ray_cast.target_position = _eye_ray_cast.to_local(player.global_position)
-	_eye_ray_cast.force_raycast_update()
-	return _eye_ray_cast.is_colliding()
+	var space := get_world_3d().direct_space_state
+	var from := eye.global_position
+	var to = player.global_position + Vector3.UP * 1.0
+
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [self]
+
+	var result := space.intersect_ray(query)
+	return result.size() > 0 and result.collider != player
+	
+	
+func _on_timer_timeout():
+	print("next pos")
+	_pick_random_roam_target()

@@ -28,8 +28,8 @@ func _physics_process(delta):
 		_step_sound.play()
 	
 	# Add the _gravity.
-	#if not is_on_floor():
-		#velocity.y -= _gravity * delta
+	if not is_on_floor():
+		velocity.y -= _gravity * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -39,7 +39,7 @@ func _physics_process(delta):
 	var speed_multiplier := SPRINT_SPEED_MULTIPLIER if Input.is_action_pressed("sprint") else 1.0
 
 	# Get the input direction and handle the movement/deceleration.
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var input_dir := Input.get_vector("move_right", "move_left", "move_back", "move_forward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * BASE_SPEED * speed_multiplier
