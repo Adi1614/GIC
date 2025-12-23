@@ -45,7 +45,7 @@ func _physics_process(_delta: float) -> void:
 	direction.y = 0.0
 	direction = direction.normalized()
 	velocity = direction * _current_speed
-	print(velocity)
+	print(position)
 	move_and_slide()
 
 
