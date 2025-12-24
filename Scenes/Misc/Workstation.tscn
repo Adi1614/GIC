@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cer6juc10sqem"]
+
+[ext_resource type="PackedScene" uid="uid://mw7b54yy06tc" path="res://Assets/blocks/Table.tscn" id="1_0xndo"]
+[ext_resource type="PackedScene" uid="uid://gt1jb3alabeh" path="res://Assets/blocks/LandlinePhone.tscn" id="2_xqsq7"]
+[ext_resource type="PackedScene" uid="uid://d1ry485jjq56t" path="res://Assets/blocks/magazine.tscn" id="3_5cpa6"]
+[ext_resource type="PackedScene" uid="uid://dhma12hubp45" path="res://Assets/blocks/Chair.tscn" id="4_usajj"]
+[ext_resource type="PackedScene" uid="uid://drwxe3p0wavx7" path="res://Assets/blocks/computer.tscn" id="5_xqsq7"]
+
+[node name="Workstation" type="Node3D"]
+
+[node name="Table" parent="." instance=ExtResource("1_0xndo")]
+
+[node name="Landline_phone" parent="Table" instance=ExtResource("2_xqsq7")]
+transform = Transform3D(-0.84523666, 0, 1.8126155, 0, 2, 0, -1.8126155, 0, -0.84523666, 0.8496628, 0.34319735, -0.24448365)
+
+[node name="Magazine" parent="Table" instance=ExtResource("3_5cpa6")]
+transform = Transform3D(0.6371819, 0, -0.77071345, 0, 1, 0, 0.77071345, 0, 0.6371819, -0.77783394, 0.3534212, -0.4494862)
+
+[node name="Magazine2" parent="Table" instance=ExtResource("3_5cpa6")]
+transform = Transform3D(0.9151006, 0, 0.4032259, 0, 1, 0, -0.4032259, 0, 0.9151006, -0.84967613, 0.36597633, -0.39198655)
+
+[node name="Chair" parent="Table" instance=ExtResource("4_usajj")]
+transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, 0.36787224, 0.053896904, -1.7827392)
+
+[node name="Computer" parent="." instance=ExtResource("5_xqsq7")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, 0, 0.52479035, 0.0703485)

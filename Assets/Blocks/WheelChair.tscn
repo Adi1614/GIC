@@ -1,8 +1,8 @@
 [gd_scene load_steps=39 format=4 uid="uid://c1j5argx8u0d8"]
 
-[ext_resource type="Texture2D" uid="uid://di4xo2yuemasv" path="res://assets/hospital_hospital_Wheel_chair_BaseColor.png" id="1_sf6ct"]
-[ext_resource type="Texture2D" uid="uid://bka61ymgexfy5" path="res://assets/hospital_hospital_Wheel_chair_OcclusionRoughnessMetallic.png" id="2_auc4q"]
-[ext_resource type="Texture2D" uid="uid://d4c6m1h5o1ltm" path="res://assets/hospital_hospital_Wheel_chair_Normal.png" id="3_xa0bl"]
+[ext_resource type="Texture2D" uid="uid://di4xo2yuemasv" path="res://Assets/hospital/hospital_hospital_Wheel_chair_BaseColor.png" id="1_sf6ct"]
+[ext_resource type="Texture2D" uid="uid://bka61ymgexfy5" path="res://Assets/hospital/hospital_hospital_Wheel_chair_OcclusionRoughnessMetallic.png" id="2_auc4q"]
+[ext_resource type="Texture2D" uid="uid://d4c6m1h5o1ltm" path="res://Assets/hospital/hospital_hospital_Wheel_chair_Normal.png" id="3_xa0bl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4yq1r"]
 resource_name = "Wheel_chair"
@@ -147,7 +147,6 @@ points = PackedVector3Array(0.38204736, 0.053930163, 0.46700966, 0.42923695, -0.
 points = PackedVector3Array(0.5236577, 0.21916075, -0.123204514, 0.42924154, 0.07753652, -0.59529686, 0.3348254, 0.24275324, -0.2883196, 0.3348254, 0.07753652, 0.08928731, 0.5236577, 0.07753652, 0.018456697, 0.4046, 0.31888458, 0.104612604, 0.47643113, 0.24275324, -0.47715652, 0.5236577, 0.07753652, -0.5008114, 0.3348254, 0.3136, -0.2883196, 0.3348254, 0.07753652, -0.26479873, 0.4658541, 0.28714448, -0.28040415, 0.5236577, 0.24275324, -0.26479873, 0.47643113, 0.124767706, 0.08928731, 0.3348254, 0.14838329, 0.08928731, 0.42924154, 0.14838329, -0.57164204, 0.38207042, 0.3136, 0.08928731, 0.47643113, 0.101152115, -0.59529686, 0.5236577, 0.17197578, -0.45363566, 0.47643113, 0.2899613, -0.09961666, 0.42924154, 0.24275324, -0.47715652, 0.42924154, 0.2899613, -0.38273805, 0.5236577, 0.101152115, 0.018456697, 0.5236577, 0.19556826, -0.07596178, 0.4737453, 0.08425439, 0.06980549, 0.47643113, 0.14838329, -0.57164204, 0.5236577, 0.124767706, -0.5008114)
 
 [node name="Wheel_chair" type="MeshInstance3D"]
-visible = false
 mesh = SubResource("ArrayMesh_gj8ut")
 skeleton = NodePath("")
 

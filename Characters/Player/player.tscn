@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfdjg6qbeunvr"]
+[gd_scene load_steps=10 format=3 uid="uid://dfdjg6qbeunvr"]
 
 [ext_resource type="Script" uid="uid://dtb7gx3wgqwrf" path="res://Characters/player/player.gd" id="2_10sax"]
 [ext_resource type="PackedScene" uid="uid://byfgf57u8ik6s" path="res://Horn/horn.tscn" id="2_g1dw6"]
@@ -8,29 +8,44 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bbutj"]
 
+[sub_resource type="Environment" id="Environment_bhxk0"]
+background_mode = 2
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n1j3r"]
 random_pitch = 1.2
 random_volume_offset_db = 4.0
 streams_count = 1
 stream_0/stream = ExtResource("2_ncqi0")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhxk0"]
+albedo_color = Color(0.8347667, 0.0005723709, 0.83889645, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_763xw"]
+material = SubResource("StandardMaterial3D_bhxk0")
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("2_10sax")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 1.1920929e-07, 0)
 mesh = SubResource("CapsuleMesh_bhxk0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_bbutj")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0006355047, 0.754935, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0006355047, 0.52939653, 0)
+environment = SubResource("Environment_bhxk0")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
-spot_angle = 29.6482
+spot_range = 15.57
+spot_attenuation = 1.97
+spot_angle = 46.15
+spot_angle_attenuation = 2.3784142
 
 [node name="Horn" parent="Camera3D" instance=ExtResource("2_g1dw6")]
 transform = Transform3D(-0.3045116, 0, 0.017254079, 0, 0.30500004, 0, -0.017254079, 0, -0.3045116, 0.6621953, -0.6985713, -0.85249954)
@@ -38,3 +53,15 @@ transform = Transform3D(-0.3045116, 0, 0.017254079, 0, 0.30500004, 0, -0.0172540
 [node name="StepSound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_n1j3r")
 volume_db = -10.0
+
+[node name="VisionTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10106206, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VisionTarget"]
+transform = Transform3D(0.215, 0, 0, 0, 0.215, 0, 0, 0, 0.215, 0, 0, -1.54)
+mesh = SubResource("SphereMesh_763xw")
+
+[node name="StandCheck" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[editable path="Camera3D/Horn"]

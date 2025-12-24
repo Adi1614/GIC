@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=4 uid="uid://dmg3u5qibaxis"]
 
-[ext_resource type="Texture2D" uid="uid://kbs76qiaxjjl" path="res://assets/hospital_hospital_Chairs_tables_1_BaseColor.png" id="1_qifmt"]
-[ext_resource type="Texture2D" uid="uid://kch4gwj04d7f" path="res://assets/hospital_hospital_Chairs_tables_1_OcclusionRoughnessMetallic.png" id="2_upi1e"]
-[ext_resource type="Texture2D" uid="uid://ckiapum8m5clr" path="res://assets/hospital_hospital_Chairs_tables_1_Normal.png" id="3_74lck"]
+[ext_resource type="Texture2D" uid="uid://kbs76qiaxjjl" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_BaseColor.png" id="1_qifmt"]
+[ext_resource type="Texture2D" uid="uid://kch4gwj04d7f" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_OcclusionRoughnessMetallic.png" id="2_upi1e"]
+[ext_resource type="Texture2D" uid="uid://ckiapum8m5clr" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_Normal.png" id="3_74lck"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghd8x"]
 resource_name = "Chairs_tables_1"
@@ -91,7 +91,6 @@ points = PackedVector3Array(0.64874995, 1.0457277, -0.041530885, 0.7609261, 1.15
 
 [node name="Bench" type="MeshInstance3D"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
-visible = false
 mesh = SubResource("ArrayMesh_8hjl0")
 skeleton = NodePath("")
 

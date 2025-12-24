@@ -4,6 +4,7 @@ var can_move = true
 var set_pos_up = false
 var set_pos_down = true
 var timer_not_start = true
+var _last_can_see := false
 
 # -------------------------------------------------
 # NODES
@@ -31,15 +32,17 @@ var timer_not_start = true
 
 @export var not_reach_time = 4.0
 
+@export var max_stun_time := 5.0
 # -------------------------------------------------
 # STATE
 # -------------------------------------------------
-enum STATES { ROAM, CHASE, SEARCH }
+enum STATES { ROAM, CHASE, SEARCH, STUN }
 var state: STATES = STATES.ROAM
 
 var chase_timer := 0.0
 var search_timer := 0.0
 var path_timer := 0.0
+var stun_timer := 0.0
 var current_speed := 0.0
 var last_seen_player_pos: Vector3
 
@@ -49,6 +52,8 @@ var last_seen_player_pos: Vector3
 func _ready() -> void:
 	await get_tree().physics_frame
 	timer.timeout.connect(_on_timer_timeout)
+	Global.EnemyCall.connect(_start_chase)
+	Global.EnemyStun.connect(_start_stun)
 	_pick_random_roam_target()
 
 # -------------------------------------------------
@@ -66,6 +71,8 @@ func _physics_process(delta: float) -> void:
 			_chase_state(delta)
 		STATES.SEARCH:
 			_search_state(delta)
+		STATES.STUN:
+			_stun(delta)
 
 	_move_along_path(delta)
 
@@ -177,8 +184,8 @@ func _chase_state(delta: float) -> void:
 		search_timer = search_time
 		nav.target_position = last_seen_player_pos
 
-	if global_position.distance_to(player.global_position) <= catching_distance:
-		print("PLAYER CAUGHT")
+	#if global_position.distance_to(player.global_position) <= catching_distance:
+		#print("PLAYER CAUGHT")
 
 # -------------------------------------------------
 # SEARCH
@@ -224,17 +231,30 @@ func _pick_search_point() -> void:
 # VISION
 # -------------------------------------------------
 func is_player_in_view() -> bool:
-	var to_player = player.global_position - global_position
+	var to_player = player.vision_target.global_position - eye.global_position
 	if to_player.length() > max_spotting_distance:
 		return false
 
-	var fov := -eye.global_basis.z.normalized().dot(to_player.normalized()) > 0.82
-	return fov and not is_line_of_sight_broken()
+	var fov := -eye.global_basis.z.normalized().dot(to_player.normalized()) > 0.7
+	var visible = fov and not is_line_of_sight_broken()
+	_log_vision(visible)
+	return visible
+	
+func _log_vision(can_see: bool) -> void:
+	if can_see == _last_can_see:
+		return
+
+	_last_can_see = can_see
+
+	if can_see:
+		print("ENEMY CAN SEE PLAYER")
+	else:
+		print("ENEMY LOST SIGHT OF PLAYER")
 
 func is_line_of_sight_broken() -> bool:
 	var space := get_world_3d().direct_space_state
 	var from := eye.global_position
-	var to = player.global_position + Vector3.UP * 1.0
+	var to = player.vision_target.global_position
 
 	var query := PhysicsRayQueryParameters3D.create(from, to)
 	query.exclude = [self]
@@ -242,7 +262,32 @@ func is_line_of_sight_broken() -> bool:
 	var result := space.intersect_ray(query)
 	return result.size() > 0 and result.collider != player
 	
+
+func _start_stun():
+	print("start stun")
+	state = STATES.STUN
+	stun_timer = max_stun_time
+	can_move = false
+	if animation_player.current_animation != "Death":
+		animation_player.play("Death")
+	animation_player.animation_finished.connect(_on_stun_finished)
 	
+
+func _on_stun_finished(x) -> void:
+	print(x)
+	can_move = true
+
+func _stun(delta):
+	current_speed = 0
+	stun_timer -= delta
+	print("Stunned")
+	
+	if stun_timer <= 0.0:
+		print("Stunned")
+		animation_player.play_backwards("Death")
+		state = STATES.ROAM
+	
+
 func _on_timer_timeout():
 	print("next pos")
 	_pick_random_roam_target()

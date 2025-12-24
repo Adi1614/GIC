@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://b30xja7ltplr"]
 
-[ext_resource type="Texture2D" uid="uid://in8j8w6mt04n" path="res://assets/hospital_hospital_Ceiling_light_BaseColor.png" id="1_swtdx"]
-[ext_resource type="Texture2D" uid="uid://cnfqnlo36u46t" path="res://assets/hospital_hospital_Ceiling_light_OcclusionRoughnessMetallic.png" id="2_oq0uo"]
-[ext_resource type="Texture2D" uid="uid://iffdirnylbm4" path="res://assets/hospital_hospital_Ceiling_light_Normal.png" id="3_mbw4w"]
+[ext_resource type="Texture2D" uid="uid://in8j8w6mt04n" path="res://Assets/hospital/hospital_hospital_Ceiling_light_BaseColor.png" id="1_swtdx"]
+[ext_resource type="Texture2D" uid="uid://cnfqnlo36u46t" path="res://Assets/hospital/hospital_hospital_Ceiling_light_OcclusionRoughnessMetallic.png" id="2_oq0uo"]
+[ext_resource type="Texture2D" uid="uid://iffdirnylbm4" path="res://Assets/hospital/hospital_hospital_Ceiling_light_Normal.png" id="3_mbw4w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q27fg"]
 resource_name = "Ceiling_light"
@@ -54,7 +54,6 @@ shadow_mesh = SubResource("ArrayMesh_dy4cs")
 points = PackedVector3Array(0.30044028, 0, 0.30044028, -0.30882537, -0.066625394, -0.30882537, -0.30882537, -0.066625394, 0.30882537, 0.30882537, -0.066625394, -0.30882537, -0.30044028, 0, -0.30044028, 0.30882537, -0.066625394, 0.30882537, 0.30044028, 0, -0.30044028, -0.30044028, 0, 0.30044028)
 
 [node name="Ceiling_Light" type="MeshInstance3D"]
-visible = false
 mesh = SubResource("ArrayMesh_f225w")
 skeleton = NodePath("")
 
@@ -62,3 +61,7 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_g1uj8")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12530503, 0)
+light_color = Color(0.75393593, 0.8073273, 0.2662551, 1)

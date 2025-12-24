@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://dj4ox54020q78"]
 
-[ext_resource type="Texture2D" uid="uid://c6fgdbhkq3ur8" path="res://assets/hospital_hospital_Walls_1_BaseColor.png" id="1_wjc7i"]
-[ext_resource type="Texture2D" uid="uid://c8545imlasmff" path="res://assets/hospital_hospital_Walls_1_OcclusionRoughnessMetallic.png" id="2_812i1"]
-[ext_resource type="Texture2D" uid="uid://vvnt7jqmjj22" path="res://assets/hospital_hospital_Walls_1_Normal.png" id="3_8vada"]
+[ext_resource type="Texture2D" uid="uid://c6fgdbhkq3ur8" path="res://Assets/hospital/hospital_hospital_Walls_1_BaseColor.png" id="1_wjc7i"]
+[ext_resource type="Texture2D" uid="uid://c8545imlasmff" path="res://Assets/hospital/hospital_hospital_Walls_1_OcclusionRoughnessMetallic.png" id="2_812i1"]
+[ext_resource type="Texture2D" uid="uid://vvnt7jqmjj22" path="res://Assets/hospital/hospital_hospital_Walls_1_Normal.png" id="3_8vada"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8meqc"]
 resource_name = "Walls_1"
@@ -54,7 +54,6 @@ shadow_mesh = SubResource("ArrayMesh_01avx")
 points = PackedVector3Array(0.2076, 2.6805634, 0.2076, -0.236, 0.093183294, -0.236, -0.236, 0.093183294, 0.2357778, 0.236, 0.09199831, 0.236, 0.2357778, 0.093183294, -0.236, -0.2076, 2.679141, -0.2076, -0.2077111, 2.6798522, 0.2074889, 0.2074889, 2.6798522, -0.2077111, 0.22888888, 2.0377681, -0.22911109, -0.22911109, 2.0377681, 0.22888888, 0.22899999, 2.0381012, 0.22899999, -0.22899999, 2.037435, -0.22899999)
 
 [node name="Pillar" type="MeshInstance3D"]
-visible = false
 mesh = SubResource("ArrayMesh_uvea4")
 skeleton = NodePath("")
 

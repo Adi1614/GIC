@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=4 uid="uid://4orh4syf4yd5"]
 
-[ext_resource type="Texture2D" uid="uid://kbs76qiaxjjl" path="res://assets/hospital_hospital_Chairs_tables_1_BaseColor.png" id="1_uel1s"]
-[ext_resource type="Texture2D" uid="uid://kch4gwj04d7f" path="res://assets/hospital_hospital_Chairs_tables_1_OcclusionRoughnessMetallic.png" id="2_nttqo"]
-[ext_resource type="Texture2D" uid="uid://ckiapum8m5clr" path="res://assets/hospital_hospital_Chairs_tables_1_Normal.png" id="3_4os7a"]
+[ext_resource type="Texture2D" uid="uid://kbs76qiaxjjl" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_BaseColor.png" id="1_uel1s"]
+[ext_resource type="Texture2D" uid="uid://kch4gwj04d7f" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_OcclusionRoughnessMetallic.png" id="2_nttqo"]
+[ext_resource type="Texture2D" uid="uid://ckiapum8m5clr" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_Normal.png" id="3_4os7a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghd8x"]
 resource_name = "Chairs_tables_1"
@@ -57,7 +57,6 @@ points = PackedVector3Array(0.06444031, -0.17570563, 0.0722, -0.3100614, -0.5126
 points = PackedVector3Array(0.0778453, 0.17590892, 0.11587858, -0.33515948, 0.25097787, -0.43495953, -0.30499992, 0.2823, -0.4099214, 0.32835, 0.25097787, -0.43495953, 0.29819044, 0.2823, 0.067998335, 0.29323938, 0.15310426, -0.40169093, -0.29982594, 0.15315431, 0.05819468, -0.30499992, 0.2823, 0.067998335, -0.2997293, 0.15317601, -0.40143004, 0.29339203, 0.15306999, 0.058470543, 0.29819044, 0.2823, -0.4099214, -0.33515948, 0.25097787, 0.090752244, 0.32835, 0.25097787, 0.090752244, -0.072249696, 0.15085, 0.11587858, 0.26654032, 0.15370326, 0.06838953, -0.072249696, 0.17590892, 0.11587858, -0.27308777, 0.15376732, 0.068168305)
 
 [node name="Cabinet_3" type="MeshInstance3D"]
-visible = false
 mesh = SubResource("ArrayMesh_rs4sb")
 skeleton = NodePath("")
 

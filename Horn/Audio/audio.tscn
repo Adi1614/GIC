@@ -1,0 +1,162 @@
+[gd_scene load_steps=8 format=3 uid="uid://plhsfa4x5ugb"]
+
+[ext_resource type="Script" uid="uid://dqr33ml0vd77b" path="res://Horn/Audio/horn_player.gd" id="1_qc0l7"]
+[ext_resource type="AudioStream" uid="uid://cmb1yg1bhmce" path="res://Horn/mega-horn-398654.mp3" id="2_q45hi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q45hi"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ybffx"]
+sky_material = SubResource("ProceduralSkyMaterial_q45hi")
+
+[sub_resource type="Environment" id="Environment_p423y"]
+background_mode = 2
+sky = SubResource("Sky_ybffx")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="SystemFont" id="SystemFont_q45hi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ybffx"]
+font = SubResource("SystemFont_q45hi")
+font_size = 30
+
+[node name="HornPlayer" type="Node3D"]
+script = ExtResource("1_qc0l7")
+timeout_horn = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p423y")
+
+[node name="Player" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_q45hi")
+bus = &"HornBus"
+
+[node name="Control" type="Control" parent="."]
+clip_contents = true
+layout_direction = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Box" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 141.0
+offset_top = 111.0
+offset_right = -141.0
+offset_bottom = -111.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Box"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Box/HBoxContainer"]
+layout_mode = 2
+text = "Pitch"
+label_settings = SubResource("LabelSettings_ybffx")
+
+[node name="PitchSlider" type="HSlider" parent="Control/Box/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Box"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Box/HBoxContainer2"]
+layout_mode = 2
+text = "Disortion"
+label_settings = SubResource("LabelSettings_ybffx")
+
+[node name="DistortionSlider" type="HSlider" parent="Control/Box/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/Box"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Box/HBoxContainer4"]
+layout_mode = 2
+text = "Delay"
+label_settings = SubResource("LabelSettings_ybffx")
+
+[node name="DelaySlider" type="HSlider" parent="Control/Box/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.1
+value = 0.3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/Box"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Box/HBoxContainer5"]
+layout_mode = 2
+text = "Phaser"
+label_settings = SubResource("LabelSettings_ybffx")
+
+[node name="PhaserSlider" type="HSlider" parent="Control/Box/HBoxContainer5"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.1
+value = 0.2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/Box"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Box/HBoxContainer6"]
+layout_mode = 2
+text = "Compressor"
+label_settings = SubResource("LabelSettings_ybffx")
+
+[node name="CompressorSlider" type="HSlider" parent="Control/Box/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.1
+value = 0.3
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.87320983)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=4 uid="uid://c28rq66bkevwu"]
 
-[ext_resource type="Texture2D" uid="uid://d1qhuadklmwnt" path="res://assets/hospital_hospital_Bed_BaseColor.png" id="1_5mb55"]
-[ext_resource type="Texture2D" uid="uid://lmvjfuaf2cja" path="res://assets/hospital_hospital_Bed_OcclusionRoughnessMetallic.png" id="2_86t17"]
-[ext_resource type="Texture2D" uid="uid://d38bdgwxlnlp0" path="res://assets/hospital_hospital_Bed_Normal.png" id="3_gfwf0"]
+[ext_resource type="Texture2D" uid="uid://d1qhuadklmwnt" path="res://Assets/hospital/hospital_hospital_Bed_BaseColor.png" id="1_5mb55"]
+[ext_resource type="Texture2D" uid="uid://lmvjfuaf2cja" path="res://Assets/hospital/hospital_hospital_Bed_OcclusionRoughnessMetallic.png" id="2_86t17"]
+[ext_resource type="Texture2D" uid="uid://d38bdgwxlnlp0" path="res://Assets/hospital/hospital_hospital_Bed_Normal.png" id="3_gfwf0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sckw"]
 resource_name = "Bed"
@@ -90,7 +90,6 @@ points = PackedVector3Array(0.33200473, -0.07058097, 0.36432385, 0.23004374, -0.
 points = PackedVector3Array(0.026061893, -0.2745229, 0.41531432, 0.33200476, -0.07058096, 0.41531432, 0.38299525, -0.22353742, 0.56828576, 0.38299525, -0.32553333, 0.41531432, 0.026061893, -0.17257687, 0.51727533, 0.026061893, -0.32553333, 0.51727533, 0.2300238, -0.07058096, 0.36432385, 0.4339857, -0.32553333, 0.51727533, 0.4339857, -0.17257687, 0.41531432, 0.33200476, -0.22353742, 0.36432385, 0.026061893, -0.17257687, 0.41531432, 0.28097436, -0.2745229, 0.56828576, 0.4339857, -0.17257687, 0.51727533, 0.33200476, -0.07058096, 0.36432385, 0.026061893, -0.32553333, 0.4663048, 0.4339857, -0.2745229, 0.41531432, 0.2300238, -0.07058096, 0.41531432, 0.28097436, -0.22353742, 0.36432385, 0.28097436, -0.32553333, 0.41531432)
 
 [node name="Bed" type="MeshInstance3D"]
-visible = false
 mesh = SubResource("ArrayMesh_qlotu")
 skeleton = NodePath("")
 

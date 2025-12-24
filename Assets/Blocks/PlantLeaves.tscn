@@ -114,7 +114,6 @@ points = PackedVector3Array(-0.25257465, -0.24183969, 0.19949134, -0.2805024, -0
 
 [node name="Plant_leaves" type="MeshInstance3D"]
 transform = Transform3D(-0.86152947, 0.50770766, 0, -0.50770766, -0.86152947, 0, 0, 0, 1, 0, 0, 0)
-visible = false
 mesh = SubResource("ArrayMesh_fdhtt")
 skeleton = NodePath("")
 

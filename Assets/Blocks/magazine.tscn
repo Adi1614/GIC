@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://d1ry485jjq56t"]
 
-[ext_resource type="Texture2D" uid="uid://dsyae5l0nv4ab" path="res://assets/hospital_Magazine1_Magazine_BaseColor.png" id="1_fhsbu"]
-[ext_resource type="Texture2D" uid="uid://dcjtn6xpqttlb" path="res://assets/hospital_Magazine1_Magazine_OcclusionRoughnessMetallic.png" id="2_dtofq"]
-[ext_resource type="Texture2D" uid="uid://7hwku0q7ad7y" path="res://assets/hospital_Magazine1_Magazine_Normal.png" id="3_r7sb7"]
+[ext_resource type="Texture2D" uid="uid://dsyae5l0nv4ab" path="res://Assets/hospital/hospital_Magazine1_Magazine_BaseColor.png" id="1_fhsbu"]
+[ext_resource type="Texture2D" uid="uid://dcjtn6xpqttlb" path="res://Assets/hospital/hospital_Magazine1_Magazine_OcclusionRoughnessMetallic.png" id="2_dtofq"]
+[ext_resource type="Texture2D" uid="uid://7hwku0q7ad7y" path="res://Assets/hospital/hospital_Magazine1_Magazine_Normal.png" id="3_r7sb7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3vr2"]
 resource_name = "Magazine"
@@ -52,7 +52,6 @@ shadow_mesh = SubResource("ArrayMesh_nh2jo")
 points = PackedVector3Array(-0.10860476, -0.004704762, -0.15360476, 0.089242846, 0.0037142853, 0.11580475, 0.089242846, -0.004704762, 0.11580475, 0.089242846, 0.0037142853, -0.15360476, -0.10860476, 0.0037142853, 0.11580475, -0.10860476, -0.004704762, 0.11580475, 0.089242846, -0.004704762, -0.15360476, -0.10860476, 0.0037142853, -0.15360476)
 
 [node name="Magazine" type="MeshInstance3D"]
-visible = false
 mesh = SubResource("ArrayMesh_wcm2j")
 skeleton = NodePath("")
 

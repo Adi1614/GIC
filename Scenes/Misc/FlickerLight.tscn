@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi4ilpueqj062"]
+
+[ext_resource type="Script" uid="uid://dmm4tpmdfrump" path="res://Scripts/Misc/flicker_light.gd" id="1_hv8jc"]
+
+[node name="FlickerLight" type="SpotLight3D"]
+spot_angle = 180.0
+script = ExtResource("1_hv8jc")
+flicker_strength = 0.8
+flicker_speed = 5.0
+burst_energy = 1.5
+burst_duration = 5.0
+burst_chance = 0.4
+blackout_chance = 0.3
+blackout_duration = 2.0
