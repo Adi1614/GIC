@@ -9,6 +9,8 @@ height = 0.81884766
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_px1sc")
+catching_distance = 0.7
+not_reach_time = 10.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 unique_name_in_owner = true

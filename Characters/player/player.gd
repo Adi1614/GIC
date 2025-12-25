@@ -104,6 +104,9 @@ func _physics_process(delta):
 
 
 func _input(event):
+	if get_tree().paused:
+		return
+
 	if event is InputEventMouseMotion and not UI_horn.visible:
 		rotation_degrees.y += event.relative.x * -_mouse_sensitivity
 		_cam.rotation_degrees.x += event.relative.y * -_mouse_sensitivity

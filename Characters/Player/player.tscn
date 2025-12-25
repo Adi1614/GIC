@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfdjg6qbeunvr"]
+[gd_scene load_steps=14 format=3 uid="uid://dfdjg6qbeunvr"]
 
 [ext_resource type="Script" uid="uid://dtb7gx3wgqwrf" path="res://Characters/player/player.gd" id="2_10sax"]
 [ext_resource type="PackedScene" uid="uid://byfgf57u8ik6s" path="res://Horn/horn.tscn" id="2_g1dw6"]
 [ext_resource type="AudioStream" uid="uid://dbjbxday0iyf2" path="res://Assets/Sounds/FootStep/138476__justinvoke__steptap.wav" id="2_ncqi0"]
 [ext_resource type="Script" uid="uid://cvxde8d0w5w6b" path="res://Scripts/Misc/text_player.gd" id="4_763xw"]
+[ext_resource type="Script" uid="uid://cahwl6t20gcog" path="res://Scripts/Misc/notes.gd" id="5_ek8bb"]
+[ext_resource type="Texture2D" uid="uid://bmj0a8io00r6t" path="res://Assets/misc/Untitled_design_16.png" id="6_aq715"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bbutj"]
 
@@ -22,6 +24,23 @@ albedo_color = Color(0.8347667, 0.0005723709, 0.83889645, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_763xw"]
 material = SubResource("StandardMaterial3D_bhxk0")
 
+[sub_resource type="FontFile" id="FontFile_ek8bb"]
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_aq715"]
+font = SubResource("FontFile_ek8bb")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("2_10sax")
@@ -31,7 +50,7 @@ transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_bbutj")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0006355047, 0.52939653, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0006355047, 0.57390213, 0)
 environment = SubResource("Environment_bhxk0")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
@@ -67,5 +86,21 @@ offset_right = 1143.0
 offset_bottom = 550.0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Notes" type="CanvasLayer" parent="."]
+script = ExtResource("5_ek8bb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Notes"]
+position = Vector2(566.00006, 323)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("6_aq715")
+
+[node name="Label" type="Label" parent="Notes"]
+offset_left = 403.0
+offset_top = 159.0
+offset_right = 451.0
+offset_bottom = 203.0
+text = "NO"
+label_settings = SubResource("LabelSettings_aq715")
 
 [editable path="Camera3D/Horn"]

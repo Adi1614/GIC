@@ -31,18 +31,19 @@ var _last_can_see := false
 @export var catching_distance := 1.4
 
 @export var not_reach_time = 4.0
-
+@export var max_idle_time := 3.0
 @export var max_stun_time := 5.0
 # -------------------------------------------------
 # STATE
 # -------------------------------------------------
-enum STATES { ROAM, CHASE, SEARCH, STUN }
+enum STATES { ROAM, CHASE, SEARCH, STUN, IDLE }
 var state: STATES = STATES.ROAM
 
 var chase_timer := 0.0
 var search_timer := 0.0
 var path_timer := 0.0
 var stun_timer := 0.0
+var idle_timer := 0.0
 var current_speed := 0.0
 var last_seen_player_pos: Vector3
 
@@ -74,6 +75,8 @@ func _physics_process(delta: float) -> void:
 			_search_state(delta)
 		STATES.STUN:
 			_stun(delta)
+		STATES.IDLE:
+			_idle_state(delta)
 
 	_move_along_path(delta)
 
@@ -185,8 +188,39 @@ func _chase_state(delta: float) -> void:
 		search_timer = search_time
 		nav.target_position = last_seen_player_pos
 
-	#if global_position.distance_to(player.global_position) <= catching_distance:
-		#print("PLAYER CAUGHT")
+	if global_position.distance_to(player.global_position) <= catching_distance:
+		print("PLAYER CAUGHT")
+		
+	if Global.enemy_near_table and Global.player_under_table:
+		_start_idle()
+		
+
+# -------------------------------------------------
+# IDLE
+# -------------------------------------------------
+
+func _start_idle():
+	state = STATES.IDLE
+	idle_timer = max_idle_time
+	if animation_player.current_animation != "Idle ":
+		animation_player.play("Idle ")
+	animation_player.animation_finished.connect(_on_idle_finished)
+	
+
+func _on_idle_finished(x):
+	print(x)
+	pass
+
+func _idle_state(delta: float):
+	current_speed = 0.0
+	idle_timer -= delta
+	
+	print(idle_timer)
+	
+	if idle_timer <= 0.0:
+		state = STATES.SEARCH
+		search_timer = search_time
+		nav.target_position = last_seen_player_pos
 
 # -------------------------------------------------
 # SEARCH
@@ -201,7 +235,6 @@ func _search_state(delta: float) -> void:
 		_pick_search_point()
 
 	if is_player_in_view():
-		
 		state = STATES.CHASE
 		chase_timer = chase_max_time
 
@@ -236,7 +269,7 @@ func is_player_in_view() -> bool:
 	if to_player.length() > max_spotting_distance:
 		return false
 
-	var fov := -eye.global_basis.z.normalized().dot(to_player.normalized()) > 0.7
+	var fov := -eye.global_basis.z.normalized().dot(to_player.normalized()) > 0.6
 	var visible = fov and not is_line_of_sight_broken()
 	_log_vision(visible)
 	return visible
