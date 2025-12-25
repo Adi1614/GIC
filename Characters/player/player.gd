@@ -1,5 +1,6 @@
 extends CharacterBody3D
 class_name Player
+#class_name Player
 
 
 const BASE_SPEED = 5.0
@@ -10,9 +11,11 @@ const JUMP_VELOCITY = 4.5
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _last_step_location := Vector3.ZERO
 var is_crouching = false
+var _has_horn := false
 
 @onready var UI_horn = $Camera3D/Horn/HornPlayer/Control
 @onready var horn = $Camera3D/Horn
+@onready var horn_player = $Camera3D/Horn/HornPlayer
 @onready var _mouse_sensitivity := 0.15 / (get_viewport().get_visible_rect().size.x/1152.0)
 @onready var _cam := $Camera3D
 @onready var _step_sound: AudioStreamPlayer = $StepSound
@@ -20,6 +23,8 @@ var is_crouching = false
 @onready var collider = $CollisionShape3D
 @onready var stand_check = $StandCheck
 @onready var text_player = $TextPlayer
+@onready var message_toast = $TextPlayer/MessageToast
+
 
 
 @export var crouch_height = 1
@@ -28,14 +33,16 @@ var is_crouching = false
 @export var crouch_eye_y = 0.4
 
 func _ready():
+	add_to_group("player")
 	UI_horn.hide()
+	horn.visible = _has_horn
 	horn.toggle_visibilty.connect(_toggle_visibility)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_last_step_location = Vector3(global_position.x, 0.0, global_position.z)
-	
+
 
 func _toggle_visibility():
-	UI_horn.visible = not UI_horn.visible
+	UI_horn.visible = not UI_horn.visible and _has_horn
 	if UI_horn.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
@@ -69,6 +76,7 @@ func _try_stand() -> void:
 	vision_target.position.y = stand_eye_y
 
 func _physics_process(delta):
+	
 	# Handle tap tap tap
 	var xz_position := Vector3(global_position.x, 0.0, global_position.z)
 	if _last_step_location.distance_to(xz_position) > 2.0:
@@ -101,10 +109,19 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, BASE_SPEED)
 
 	move_and_slide()
-
+	
+	
 
 func _input(event):
+	
 	if event is InputEventMouseMotion and not UI_horn.visible:
 		rotation_degrees.y += event.relative.x * -_mouse_sensitivity
 		_cam.rotation_degrees.x += event.relative.y * -_mouse_sensitivity
 		_cam.rotation_degrees.x = clamp(_cam.rotation_degrees.x, -90, 90)
+
+func get_horn():
+	print("Got Horn")
+	horn_player.can_play = true
+	_has_horn = true
+	horn.visible = true
+	message_toast.show_message("Press [tab] to adjust Horn", 4, 0.6)

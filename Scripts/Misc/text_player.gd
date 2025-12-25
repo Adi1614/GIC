@@ -3,7 +3,8 @@ extends CanvasLayer
 
 var Dialogues = [
 	"",
-	"Play Correct Sound to Turn on the Power"
+	"Play Correct Sound to Turn on the Power",
+	"Press [tab] to adjust Horn",
 ]
 
 @onready var text = $Label

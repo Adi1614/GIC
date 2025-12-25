@@ -61,8 +61,6 @@ func _ready() -> void:
 # PHYSICS LOOP
 # -------------------------------------------------
 func _physics_process(delta: float) -> void:
-	if not can_move:
-		return
 	#_apply_gravity(delta)
 
 	match state:

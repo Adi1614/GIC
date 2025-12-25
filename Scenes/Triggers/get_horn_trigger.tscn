@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://pqby4l0np2pp"]
+
+[ext_resource type="PackedScene" uid="uid://mw7b54yy06tc" path="res://Assets/Blocks/Table.tscn" id="1_nucq1"]
+[ext_resource type="Script" uid="uid://dbfip0s51j04j" path="res://Scripts/Triggers/get_horn_trigger.gd" id="1_u3bcw"]
+[ext_resource type="PackedScene" uid="uid://c5br4ujgr8x1h" path="res://Horn/stratosonic_horn_-_music.glb" id="2_u3bcw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qwdq3"]
+size = Vector3(2.46875, 0.6875, 2.616211)
+
+[node name="GetHornTrigger" type="Area3D"]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("1_u3bcw")
+
+[node name="Table" parent="." instance=ExtResource("1_nucq1")]
+transform = Transform3D(-0.02145167, 0, 0.78970873, 0, 0.79, 0, -0.78970873, 0, -0.02145167, 0, 0, 0)
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_u3bcw")]
+transform = Transform3D(0.058140427, 0.08946669, -0.25508374, -0.23990136, 0.1373211, -0.0065166866, 0.12457632, 0.22269006, 0.10649943, 0, 0.2881783, -0.13650852)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_qwdq3")

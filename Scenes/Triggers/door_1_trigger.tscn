@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://015tqtq7taog"]
+
+[ext_resource type="PackedScene" uid="uid://cdyub22wlhfdk" path="res://Assets/Blocks/DoorSwing.tscn" id="1_fg81g"]
+[ext_resource type="Script" uid="uid://2p1cuo56p76l" path="res://Scripts/Triggers/door_1_trigger.gd" id="1_wq6eo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fg81g"]
+size = Vector3(6.100929, 2.408081, 7.461668)
+
+[node name="Door1Trigger" type="Area3D"]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("1_wq6eo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4702413, 0.7040405, 2.7779531)
+shape = SubResource("BoxShape3D_fg81g")
+
+[node name="Door_swing" parent="." instance=ExtResource("1_fg81g")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+visible = true

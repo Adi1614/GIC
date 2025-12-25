@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfdjg6qbeunvr"]
+[gd_scene load_steps=12 format=3 uid="uid://dfdjg6qbeunvr"]
 
-[ext_resource type="Script" uid="uid://dtb7gx3wgqwrf" path="res://Characters/player/player.gd" id="2_10sax"]
+[ext_resource type="Script" uid="uid://cgck45usid2tv" path="res://Characters/player/player.gd" id="2_10sax"]
 [ext_resource type="PackedScene" uid="uid://byfgf57u8ik6s" path="res://Horn/horn.tscn" id="2_g1dw6"]
 [ext_resource type="AudioStream" uid="uid://dbjbxday0iyf2" path="res://Assets/Sounds/FootStep/138476__justinvoke__steptap.wav" id="2_ncqi0"]
-[ext_resource type="Script" uid="uid://cvxde8d0w5w6b" path="res://Scripts/Misc/text_player.gd" id="4_763xw"]
+[ext_resource type="Script" uid="uid://dbly28xu3bic6" path="res://Scripts/Misc/text_player.gd" id="4_763xw"]
+[ext_resource type="Script" uid="uid://vfpv0qjeigew" path="res://Scripts/Misc/message_toast.gd" id="5_xf5fp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bbutj"]
 
@@ -22,8 +23,13 @@ albedo_color = Color(0.8347667, 0.0005723709, 0.83889645, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_763xw"]
 material = SubResource("StandardMaterial3D_bhxk0")
 
+[sub_resource type="LabelSettings" id="LabelSettings_xf5fp"]
+font_size = 20
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 255
+collision_mask = 255
 script = ExtResource("2_10sax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -61,10 +67,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("4_763xw")
 
 [node name="Label" type="Label" parent="TextPlayer"]
+unique_name_in_owner = true
 offset_left = 14.0
 offset_top = 490.0
 offset_right = 1143.0
 offset_bottom = 550.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageToast" type="Control" parent="TextPlayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_xf5fp")
+
+[node name="Panel" type="Panel" parent="TextPlayer/MessageToast"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="TextPlayer/MessageToast/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -286.0
+offset_bottom = -227.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_xf5fp")
 horizontal_alignment = 1
 vertical_alignment = 1
 
