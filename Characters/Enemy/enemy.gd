@@ -204,7 +204,7 @@ func _start_idle():
 	idle_timer = max_idle_time
 	if animation_player.current_animation != "Idle ":
 		animation_player.play("Idle ")
-	#animation_player.animation_finished.connect(_on_idle_finished)
+	animation_player.animation_finished.connect(_on_idle_finished)
 	
 
 func _on_idle_finished(x):
