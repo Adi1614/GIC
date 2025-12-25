@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b5axpfb7gewc6" path="res://Characters/Enemy/enemy.tscn" id="2_pane6"]
 [ext_resource type="PackedScene" uid="uid://dfdjg6qbeunvr" path="res://Characters/player/player.tscn" id="3_vkd3l"]
 [ext_resource type="PackedScene" uid="uid://bcps04tvu8vps" path="res://Assets/blocks/Cabinet1.tscn" id="3_wx80k"]
-[ext_resource type="PackedScene" path="res://Assets/blocks/Shelf.tscn" id="4_154xt"]
+[ext_resource type="PackedScene" uid="uid://bibyhky7jkk8s" path="res://Assets/blocks/Shelf.tscn" id="4_154xt"]
 [ext_resource type="PackedScene" uid="uid://cer6juc10sqem" path="res://Scenes/Misc/Workstation.tscn" id="4_t3rax"]
 [ext_resource type="MeshLibrary" uid="uid://gocpquudmkkp" path="res://Assets/meshlib/ceiling_meshlib.tres" id="4_wx80k"]
 [ext_resource type="PackedScene" uid="uid://c1j5argx8u0d8" path="res://Assets/blocks/WheelChair.tscn" id="5_154xt"]
@@ -442,3 +442,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.517265, 3.1170623, -3.2603
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[editable path="NavigationRegion3D/Objects/Hall1/Table"]
+[editable path="NavigationRegion3D/Objects/Hall1/Table2"]

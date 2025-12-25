@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1t0pugs1y4qh"]
+
+[ext_resource type="Script" uid="uid://cls1n3ol3x0u0" path="res://Scripts/Misc/escape_menu.gd" id="1_65hvg"]
+[ext_resource type="Texture2D" uid="uid://dbihqvn2o6ud1" path="res://Assets/misc/Page-Tear.png" id="1_xsuxa"]
+[ext_resource type="FontFile" uid="uid://b250p5s872loq" path="res://Assets/fonts/HelpMe.ttf" id="2_65hvg"]
+[ext_resource type="PackedScene" uid="uid://bblhf6vvso762" path="res://Scenes/UI/settings.tscn" id="2_bka8g"]
+[ext_resource type="PackedScene" uid="uid://bo6b7ailabs2j" path="res://Scenes/UI/main_menu.tscn" id="3_n5qvl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xsuxa"]
+font = ExtResource("2_65hvg")
+font_size = 150
+font_color = Color(0, 0, 0, 1)
+
+[node name="EscapeMenu" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_65hvg")
+settings_scene = ExtResource("2_bka8g")
+main_menu_scene = ExtResource("3_n5qvl")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1155.0
+offset_bottom = 648.0
+
+[node name="ResumeButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 165.0
+offset_right = 670.0
+offset_bottom = 255.0
+flat = true
+
+[node name="PageTear" type="Sprite2D" parent="Control/ResumeButton"]
+position = Vector2(125, 48)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_xsuxa")
+
+[node name="Label" type="Label" parent="Control/ResumeButton/PageTear"]
+offset_left = -432.0
+offset_top = -124.0
+offset_right = 464.0
+offset_bottom = 92.0
+text = "Resume"
+label_settings = SubResource("LabelSettings_xsuxa")
+horizontal_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 271.0
+offset_right = 670.0
+offset_bottom = 361.0
+flat = true
+
+[node name="PageTear" type="Sprite2D" parent="Control/SettingsButton"]
+position = Vector2(133, 40.00003)
+rotation = 3.1374297
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_xsuxa")
+
+[node name="Label" type="Label" parent="Control/SettingsButton/PageTear"]
+offset_left = 467.6962
+offset_top = 73.94779
+offset_right = 1363.6962
+offset_bottom = 289.9478
+rotation = 3.1415927
+text = "SETTINGS"
+label_settings = SubResource("LabelSettings_xsuxa")
+horizontal_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 384.0
+offset_right = 670.0
+offset_bottom = 474.0
+flat = true
+
+[node name="PageTear" type="Sprite2D" parent="Control/MainMenuButton"]
+position = Vector2(122, 47)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_xsuxa")
+
+[node name="Label" type="Label" parent="Control/MainMenuButton/PageTear"]
+offset_left = -444.0
+offset_top = -124.0
+offset_right = 452.0
+offset_bottom = 92.0
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_xsuxa")
+horizontal_alignment = 1

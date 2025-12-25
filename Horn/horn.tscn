@@ -38,6 +38,9 @@ corner_detail = 5
 shadow_size = 40
 
 [sub_resource type="FontFile" id="FontFile_aymlk"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/30/0/ascent = 0.0
 cache/0/30/0/descent = 0.0
 cache/0/30/0/underline_position = 0.0
@@ -123,6 +126,7 @@ script = ExtResource("1_n4tcf")
 
 [node name="HornPlayer" type="Node3D" parent="."]
 script = ExtResource("3_aymlk")
+timeout_horn = 10.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="HornPlayer"]
 environment = SubResource("Environment_p423y")

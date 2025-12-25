@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=4 uid="uid://mw7b54yy06tc"]
+[gd_scene load_steps=15 format=4 uid="uid://mw7b54yy06tc"]
 
 [ext_resource type="Texture2D" uid="uid://kbs76qiaxjjl" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_BaseColor.png" id="1_4e0y0"]
 [ext_resource type="Texture2D" uid="uid://kch4gwj04d7f" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_OcclusionRoughnessMetallic.png" id="2_sdud7"]
 [ext_resource type="Texture2D" uid="uid://ckiapum8m5clr" path="res://Assets/hospital/hospital_hospital_Chairs_tables_1_Normal.png" id="3_yu41o"]
+[ext_resource type="Script" uid="uid://c8ub6wpxwktcl" path="res://Assets/blocks/table.gd" id="4_clywu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghd8x"]
 resource_name = "Chairs_tables_1"
@@ -68,9 +69,13 @@ points = PackedVector3Array(1.0554143, -0.6693671, -0.5173388, 0.8254334, -0.017
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_l8nyo"]
 points = PackedVector3Array(1.0554143, -0.6693671, 0.55591315, 0.8254334, -0.017930716, 0.47926039, 0.8254334, -0.017930716, 0.55591315, 0.94042385, 0.097161055, 0.47926039, 0.94042385, -0.7460011, 0.47926039, 0.90210867, 0.17388892, 0.55591315, 1.0554143, -0.78436506, 0.47926039, 0.94042385, -0.7460011, 0.55591315, 0.8254334, 0.17388892, 0.47926039, 0.94042385, 0.097161055, 0.55591315, 0.8254334, 0.17388892, 0.55591315, 1.0554143, -0.78436506, 0.55591315, 1.0554143, -0.6693671, 0.47926039, 0.90210867, 0.17388892, 0.47926039, 0.978739, -0.78436506, 0.55591315)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3iaaj"]
+size = Vector3(2.9569702, 1.1708984, 2.8037567)
+
 [node name="Table" type="MeshInstance3D"]
 mesh = SubResource("ArrayMesh_nmqme")
 skeleton = NodePath("")
+script = ExtResource("4_clywu")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -91,3 +96,12 @@ shape = SubResource("ConvexPolygonShape3D_qauv1")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_l8nyo")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021514893, -0.08544922, 0.06739044)
+shape = SubResource("BoxShape3D_3iaaj")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

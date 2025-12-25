@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfdjg6qbeunvr"]
+[gd_scene load_steps=14 format=3 uid="uid://dfdjg6qbeunvr"]
 
 [ext_resource type="Script" uid="uid://dtb7gx3wgqwrf" path="res://Characters/player/player.gd" id="2_10sax"]
 [ext_resource type="PackedScene" uid="uid://byfgf57u8ik6s" path="res://Horn/horn.tscn" id="2_g1dw6"]
 [ext_resource type="AudioStream" uid="uid://dbjbxday0iyf2" path="res://Assets/Sounds/FootStep/138476__justinvoke__steptap.wav" id="2_ncqi0"]
 [ext_resource type="Script" uid="uid://cvxde8d0w5w6b" path="res://Scripts/Misc/text_player.gd" id="4_763xw"]
+[ext_resource type="Script" uid="uid://cahwl6t20gcog" path="res://Scripts/Misc/notes.gd" id="5_ek8bb"]
+[ext_resource type="Texture2D" uid="uid://bmj0a8io00r6t" path="res://Assets/misc/Untitled_design_16.png" id="6_aq715"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bbutj"]
 
@@ -22,6 +24,26 @@ albedo_color = Color(0.8347667, 0.0005723709, 0.83889645, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_763xw"]
 material = SubResource("StandardMaterial3D_bhxk0")
 
+[sub_resource type="FontFile" id="FontFile_ek8bb"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_aq715"]
+font = SubResource("FontFile_ek8bb")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("2_10sax")
@@ -31,7 +53,7 @@ transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_bbutj")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0006355047, 0.52939653, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0006355047, 0.57390213, 0)
 environment = SubResource("Environment_bhxk0")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
@@ -42,6 +64,70 @@ spot_angle_attenuation = 2.3784142
 
 [node name="Horn" parent="Camera3D" instance=ExtResource("2_g1dw6")]
 transform = Transform3D(-0.3045116, 0, 0.017254079, 0, 0.30500004, 0, -0.017254079, 0, -0.3045116, 0.6621953, -0.6985713, -0.85249954)
+
+[node name="Panel" parent="Camera3D/Horn/HornPlayer/Control" index="0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.69
+anchor_right = 0.25
+anchor_bottom = 0.85
+offset_left = 0.0
+offset_top = -74.52002
+offset_right = 157.44006
+offset_bottom = -17.07837
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+
+[node name="Box" parent="Camera3D/Horn/HornPlayer/Control" index="1"]
+custom_minimum_size = Vector2(150, 150)
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 70.0
+offset_top = -440.0
+offset_right = 826.02
+offset_bottom = -120.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(1.1, 1.1)
+
+[node name="Label6" parent="Camera3D/Horn/HornPlayer/Control/Box/HBoxContainer3/VBoxContainer" index="0"]
+size_flags_vertical = 0
+
+[node name="Label" parent="Camera3D/Horn/HornPlayer/Control/Box/HBoxContainer3/VBoxContainer" index="1"]
+size_flags_vertical = 3
+
+[node name="Label2" parent="Camera3D/Horn/HornPlayer/Control/Box/HBoxContainer3/VBoxContainer" index="2"]
+size_flags_vertical = 3
+
+[node name="Label3" parent="Camera3D/Horn/HornPlayer/Control/Box/HBoxContainer3/VBoxContainer" index="3"]
+size_flags_vertical = 3
+
+[node name="Label4" parent="Camera3D/Horn/HornPlayer/Control/Box/HBoxContainer3/VBoxContainer" index="4"]
+size_flags_vertical = 3
+
+[node name="Label5" parent="Camera3D/Horn/HornPlayer/Control/Box/HBoxContainer3/VBoxContainer" index="5"]
+size_flags_vertical = 3
+
+[node name="Label" parent="Camera3D/Horn/HornPlayer/Control/Box/HBoxContainer3/VBoxContainer2" index="0"]
+text = "0            1             2            3           4           5           6            7            8           9          10"
+
+[node name="NinePatchRect" parent="Camera3D/Horn/HornPlayer/Control" index="2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -349.0
+offset_top = -177.5
+offset_right = 0.0
+offset_bottom = 177.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera3D/Horn"]
 
 [node name="StepSound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_n1j3r")
@@ -67,5 +153,21 @@ offset_right = 1143.0
 offset_bottom = 550.0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Notes" type="CanvasLayer" parent="."]
+script = ExtResource("5_ek8bb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Notes"]
+position = Vector2(566.00006, 323)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("6_aq715")
+
+[node name="Label" type="Label" parent="Notes"]
+offset_left = 403.0
+offset_top = 159.0
+offset_right = 451.0
+offset_bottom = 203.0
+text = "NO"
+label_settings = SubResource("LabelSettings_aq715")
 
 [editable path="Camera3D/Horn"]
