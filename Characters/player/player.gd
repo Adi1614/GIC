@@ -11,7 +11,7 @@ var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _last_step_location := Vector3.ZERO
 var is_crouching = false
 
-@onready var UI = $Camera3D/Horn/HornPlayer/Control
+@onready var UI_horn = $Camera3D/Horn/HornPlayer/Control
 @onready var horn = $Camera3D/Horn
 @onready var _mouse_sensitivity := 0.15 / (get_viewport().get_visible_rect().size.x/1152.0)
 @onready var _cam := $Camera3D
@@ -19,6 +19,7 @@ var is_crouching = false
 @onready var vision_target = $VisionTarget
 @onready var collider = $CollisionShape3D
 @onready var stand_check = $StandCheck
+@onready var text_player = $TextPlayer
 
 
 @export var crouch_height = 1
@@ -27,14 +28,15 @@ var is_crouching = false
 @export var crouch_eye_y = 0.4
 
 func _ready():
-	UI.hide()
+	UI_horn.hide()
 	horn.toggle_visibilty.connect(_toggle_visibility)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_last_step_location = Vector3(global_position.x, 0.0, global_position.z)
+	
 
 func _toggle_visibility():
-	UI.visible = not UI.visible
-	if UI.visible:
+	UI_horn.visible = not UI_horn.visible
+	if UI_horn.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -102,7 +104,7 @@ func _physics_process(delta):
 
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and not UI_horn.visible:
 		rotation_degrees.y += event.relative.x * -_mouse_sensitivity
 		_cam.rotation_degrees.x += event.relative.y * -_mouse_sensitivity
 		_cam.rotation_degrees.x = clamp(_cam.rotation_degrees.x, -90, 90)

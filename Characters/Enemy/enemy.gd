@@ -54,6 +54,7 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	Global.EnemyCall.connect(_start_chase)
 	Global.EnemyStun.connect(_start_stun)
+	animation_player.animation_finished.connect(_on_scream_finished)
 	_pick_random_roam_target()
 
 # -------------------------------------------------
@@ -156,7 +157,7 @@ func _start_chase():
 	can_move = false
 	if animation_player.current_animation != "Scream":
 		animation_player.play("Scream")
-	animation_player.animation_finished.connect(_on_scream_finished)
+	
 	
 
 func _on_scream_finished(x) -> void:

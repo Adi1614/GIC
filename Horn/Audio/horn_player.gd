@@ -8,7 +8,10 @@ var horn_state: Dictionary = {
 	"EnemyStun": [0.5, 1.0, 1.0, 0.7, 0.0],
 	"LiftObj": [1.0, 0.3, 0.0, 1.0, 0.4],
 	"OpenDoor": [0.6, 0.1, 0.5, 0.7, 0.2],
-	"Help": [1.0, 1.0, 1.0, 1.0, 0.0]
+	"Help": [1.0, 1.0, 1.0, 1.0, 0.0],
+	"Machine 1": [0.6, 0.7, 0.6, 0.7, 0.6],
+	"Machine 2": [0.6, 0.9, 0.6, 0.9, 0.6],
+	"Machine 3": [0.9, 1.0, 1.0, 1.0, 0.1]
 	}
 	# pitch, distor, delay, phaser, compressor(vol)
 
