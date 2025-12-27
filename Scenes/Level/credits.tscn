@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://clsq5e5xeeoaw"]
+
+[ext_resource type="Script" uid="uid://bsbeeyrjt4tg5" path="res://Scripts/LevelScripts/credit_controller.gd" id="1_nm7lk"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_5vwkj"]
+density = 0.06
+albedo = Color(0.14767182, 0.14767179, 0.14767179, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h87vg"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_c1t8d"]
+font_size = 26
+font_color = Color(0.6052743, 0.6052743, 0.6052743, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4wvt"]
+font_size = 26
+
+[sub_resource type="Environment" id="Environment_iviq2"]
+fog_enabled = true
+volumetric_fog_enabled = true
+
+[node name="Credits" type="Node3D"]
+
+[node name="CameraRig" type="Node3D" parent="."]
+
+[node name="ShakePivot" type="Node3D" parent="CameraRig"]
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig/ShakePivot"]
+fov = 65.0
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="FlickerLight" type="OmniLight3D" parent="Environment"]
+light_energy = 1.5
+shadow_enabled = true
+
+[node name="FogVolume" type="FogVolume" parent="Environment"]
+material = SubResource("FogMaterial_5vwkj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 53.0
+offset_bottom = 136.0
+grow_horizontal = 2
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_h87vg")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 137.0
+offset_bottom = 197.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_c1t8d")
+horizontal_alignment = 1
+
+[node name="ImageRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 5
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 0.75
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_g4wvt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreditController" type="Node" parent="."]
+script = ExtResource("1_nm7lk")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iviq2")

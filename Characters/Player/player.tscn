@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://dfdjg6qbeunvr"]
+[gd_scene load_steps=15 format=3 uid="uid://dfdjg6qbeunvr"]
 
-[ext_resource type="Script" uid="uid://dtb7gx3wgqwrf" path="res://Characters/player/player.gd" id="2_10sax"]
+[ext_resource type="Script" uid="uid://cgck45usid2tv" path="res://Characters/Player/player.gd" id="2_10sax"]
 [ext_resource type="PackedScene" uid="uid://byfgf57u8ik6s" path="res://Horn/horn.tscn" id="2_g1dw6"]
 [ext_resource type="AudioStream" uid="uid://dbjbxday0iyf2" path="res://Assets/Sounds/FootStep/138476__justinvoke__steptap.wav" id="2_ncqi0"]
-[ext_resource type="Script" uid="uid://cvxde8d0w5w6b" path="res://Scripts/Misc/text_player.gd" id="4_763xw"]
-[ext_resource type="Script" uid="uid://cahwl6t20gcog" path="res://Scripts/Misc/notes.gd" id="5_ek8bb"]
+[ext_resource type="Script" uid="uid://dbly28xu3bic6" path="res://Scripts/Misc/text_player.gd" id="4_763xw"]
+[ext_resource type="Script" uid="uid://dakuqy80ah8qq" path="res://Scripts/Misc/notes.gd" id="5_ek8bb"]
 [ext_resource type="Texture2D" uid="uid://bmj0a8io00r6t" path="res://Assets/misc/Untitled_design_16.png" id="6_aq715"]
+[ext_resource type="FontFile" uid="uid://cvtwr3lmhys1v" path="res://Assets/fonts/atwriter.ttf" id="7_7vev3"]
+[ext_resource type="AudioStream" uid="uid://rp276fnu751k" path="res://Assets/Sounds/Background/mixkit-futuristic-radar-ping-1583.wav" id="8_klx3t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bbutj"]
 
@@ -18,31 +20,16 @@ random_volume_offset_db = 4.0
 streams_count = 1
 stream_0/stream = ExtResource("2_ncqi0")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhxk0"]
-albedo_color = Color(0.8347667, 0.0005723709, 0.83889645, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_763xw"]
-material = SubResource("StandardMaterial3D_bhxk0")
-
-[sub_resource type="FontFile" id="FontFile_ek8bb"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/32/0/ascent = 0.0
-cache/0/32/0/descent = 0.0
-cache/0/32/0/underline_position = 0.0
-cache/0/32/0/underline_thickness = 0.0
-cache/0/32/0/scale = 1.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
+[sub_resource type="LabelSettings" id="LabelSettings_osktb"]
+font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_aq715"]
-font = SubResource("FontFile_ek8bb")
-font_size = 32
+font = ExtResource("7_7vev3")
+font_size = 24
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_klx3t"]
+radius = 1.4783361
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -137,8 +124,6 @@ volume_db = -10.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10106206, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="VisionTarget"]
-transform = Transform3D(0.215, 0, 0, 0, 0.215, 0, 0, 0, 0.215, 0, 0, -1.54)
-mesh = SubResource("SphereMesh_763xw")
 
 [node name="StandCheck" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -147,12 +132,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("4_763xw")
 
 [node name="Label" type="Label" parent="TextPlayer"]
-offset_left = 14.0
-offset_top = 490.0
-offset_right = 1143.0
-offset_bottom = 550.0
+anchors_preset = -1
+anchor_top = 0.872
+anchor_right = 1.0
+anchor_bottom = 0.872
+offset_left = 103.0
+offset_top = -23.0
+offset_right = -113.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Hello"
+label_settings = SubResource("LabelSettings_osktb")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Notes" type="CanvasLayer" parent="."]
 script = ExtResource("5_ek8bb")
@@ -163,11 +156,26 @@ scale = Vector2(0.42, 0.42)
 texture = ExtResource("6_aq715")
 
 [node name="Label" type="Label" parent="Notes"]
-offset_left = 403.0
-offset_top = 159.0
-offset_right = 451.0
-offset_bottom = 203.0
+offset_left = 367.0
+offset_top = 122.0
+offset_right = 757.0
+offset_bottom = 533.0
 text = "NO"
 label_settings = SubResource("LabelSettings_aq715")
+autowrap_mode = 3
+
+[node name="HeartBeat" type="AudioStreamPlayer" parent="."]
+volume_db = 10.0
+
+[node name="UIsfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_klx3t")
+bus = &"SFX"
+
+[node name="EnemyDetection" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDetection"]
+shape = SubResource("SphereShape3D_klx3t")
+
+[connection signal="body_entered" from="EnemyDetection" to="." method="_on_enemy_detection_body_entered"]
 
 [editable path="Camera3D/Horn"]

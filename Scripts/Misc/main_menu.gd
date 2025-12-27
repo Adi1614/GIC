@@ -6,18 +6,24 @@ extends Node3D
 @onready var play_button: Button = $Control/PlayButton
 @onready var settings_button: Button = $Control/SettingsButton
 @onready var exit_button: Button = $Control/ExitButton
+@onready var credits = $Control/Credits
 
 @export var sensitivity := 0.01
 @export var smoothing := 10.0
 
 @export var settings_scene: PackedScene   # assign Settings.tscn in Inspector
-@export var level_1_scene: PackedScene
+@export var play_scene: PackedScene
+
+var credits_scn = preload("res://Scenes/Level/credits.tscn")
+
 
 var look_velocity := Vector2.ZERO
 var settings_instance: Node = null
 var camera_input_enabled := true
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	AudioManager.play_music_level()
 	play_button.pressed.connect(_on_play_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
@@ -46,11 +52,14 @@ func _process(delta: float) -> void:
 # -------------------------------------------------
 
 func _on_play_pressed() -> void:
-	if not level_1_scene:
+	if not play_scene:
 		push_error("Level 1 scene not assigned!")
 		return
-
-	get_tree().change_scene_to_packed(level_1_scene)
+	Global.reset_game()
+	Global.change_scene(
+		play_scene.resource_path,
+		"EXPERIMENT: TEST 555"
+	)
 
 func _on_settings_pressed() -> void:
 	if settings_instance:
@@ -78,3 +87,13 @@ func _on_settings_closed() -> void:
 
 	menu_ui.visible = true
 	camera_input_enabled = true
+
+
+func _on_credits_pressed():
+	call_deferred("_change_to_credit")
+
+func _change_to_credit():
+		Global.change_scene(
+			credits_scn.resource_path,
+			" "
+		)

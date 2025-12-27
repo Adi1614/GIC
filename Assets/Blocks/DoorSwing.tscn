@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://cdyub22wlhfdk"]
 
-[ext_resource type="Texture2D" uid="uid://bp641kwco6rba" path="res://assets/hospital_hospital_Door_1_BaseColor.png" id="1_8ndrg"]
-[ext_resource type="Texture2D" uid="uid://lpxa0dpmohp6" path="res://assets/hospital_hospital_Door_1_OcclusionRoughnessMetallic.png" id="2_mjt7w"]
-[ext_resource type="Texture2D" uid="uid://0renfqtoof2t" path="res://assets/hospital_hospital_Door_1_Normal.png" id="3_3d2v7"]
+[ext_resource type="Texture2D" uid="uid://bp641kwco6rba" path="res://Assets/hospital/hospital_hospital_Door_1_BaseColor.png" id="1_8ndrg"]
+[ext_resource type="Texture2D" uid="uid://lpxa0dpmohp6" path="res://Assets/hospital/hospital_hospital_Door_1_OcclusionRoughnessMetallic.png" id="2_mjt7w"]
+[ext_resource type="Texture2D" uid="uid://0renfqtoof2t" path="res://Assets/hospital/hospital_hospital_Door_1_Normal.png" id="3_3d2v7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1c12"]
 resource_name = "Door_mat"
@@ -55,7 +55,6 @@ points = PackedVector3Array(-0.01758492, -0.044184923, -2.0168848, 0.99905, 0.05
 
 [node name="Door_swing" type="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
-visible = false
 mesh = SubResource("ArrayMesh_224sd")
 skeleton = NodePath("")
 

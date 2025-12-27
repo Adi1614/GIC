@@ -1,6 +1,17 @@
 [gd_scene load_steps=2 format=3 uid="uid://dlit4qy7aun7e"]
 
-[ext_resource type="Script" uid="uid://xpgf8su1gc04" path="res://Singleton/AudioManager/audio_manager.gd" id="1_x1l38"]
+[ext_resource type="Script" uid="uid://cc3ekumes8upl" path="res://Singleton/AudioManager/audio_manager.gd" id="1_x1l38"]
 
-[node name="AudioManager" type="AudioStreamPlayer"]
+[node name="Audiomanager" type="Node"]
 script = ExtResource("1_x1l38")
+
+[node name="DialoguePlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="Wooshing" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

@@ -1,21 +1,40 @@
 extends Node
 
 signal EnemyStun
-signal InteractObj
+signal Help
 signal EnemyCall
+signal PlayerCaught
 signal Machine(id: int)
+signal OpenDoor
 signal HideUi
 signal ShowUi(id: int)
 signal ShowNote(id: int)
+signal RequestSceneChange(scene_path: String, floor_name: String)
+
 
 @export var escape_menu_scene: PackedScene = preload("res://Scenes/UI/escape_menu.tscn")
 
 var player_under_table = false
 var enemy_near_table = false
 
+var got_horn = false
+var OpenDoorHotkey = "???"
+var StunHotkey = "???"
+var HelpHotkey = "???"
 
+# ===============================
+# DIALOGUE STATE
+# ===============================
+var dialogue_completed: Dictionary = {}
+
+func is_dialogue_completed(id):
+	return dialogue_completed.has(id)
+	
+# -------------------------------
+
+#==================================================
 #---------------------Pause Menu-------------------
-
+#==================================================
 var pause_menu: CanvasLayer = null
 var is_paused := false
 
@@ -25,6 +44,15 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		toggle_pause()
+		
+func reset_game():
+	reset_dialogues()
+	got_horn = false
+	OpenDoorHotkey = "???"
+	StunHotkey = "???"
+	HelpHotkey = "???"
+	player_under_table = false
+	enemy_near_table = false
 
 #-------------------------------------------------
 #PAUSE CONTROL
@@ -73,11 +101,14 @@ func force_resume() -> void:
 #HELPERS
 #-------------------------------------------------
 func _is_in_main_menu() -> bool:
-	return get_tree().current_scene.name == "MainMenu"
-
+	var scene := get_tree().current_scene
+	if scene == null:
+		return false
+	return scene.name == "MainMenu"
 #-------------------------------------------------------------
 
-
+func change_scene(scene_path: String, floor_name: String = ""):
+	emit_signal("RequestSceneChange", scene_path, floor_name)
 
 func _get_horn_state(state):
 	match state:
@@ -94,10 +125,16 @@ func _get_horn_state(state):
 		"Machine 3":
 			emit_signal("Machine", 3)
 			
+		"Door":
+			emit_signal("OpenDoor")
+		"Help":
+			emit_signal("Help")
 	
 	emit_signal("EnemyCall")
-	
-	
+
+func player_caught():
+	emit_signal("PlayerCaught")
+
 func ShowInteractUI(id: int):
 	emit_signal("ShowUi", id)
 	
@@ -106,4 +143,6 @@ func HideUI():
 	
 func Show_Note(id: int):
 	emit_signal("ShowNote", id)
-	
+
+func reset_dialogues():
+	dialogue_completed = {}

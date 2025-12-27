@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://byfgf57u8ik6s"]
+[gd_scene load_steps=19 format=3 uid="uid://byfgf57u8ik6s"]
 
-[ext_resource type="Script" uid="uid://bmutolg2m0rew" path="res://Horn/horn.gd" id="1_n4tcf"]
-[ext_resource type="PackedScene" uid="uid://o72og3n187p4" path="res://Horn/stratosonic_horn_-_music.glb" id="2_8cr8o"]
-[ext_resource type="Script" uid="uid://dqr33ml0vd77b" path="res://Horn/Audio/horn_player.gd" id="3_aymlk"]
-[ext_resource type="AudioStream" uid="uid://cmb1yg1bhmce" path="res://Horn/mega-horn-398654.mp3" id="4_sri5c"]
+[ext_resource type="Script" uid="uid://c8yn1jfnqmv73" path="res://Horn/horn.gd" id="1_n4tcf"]
+[ext_resource type="PackedScene" uid="uid://c5br4ujgr8x1h" path="res://Horn/stratosonic_horn_-_music.glb" id="2_8cr8o"]
+[ext_resource type="Script" uid="uid://by4lscssq8hyr" path="res://Horn/Audio/horn_player.gd" id="3_aymlk"]
+[ext_resource type="AudioStream" uid="uid://dsfidws43xkrb" path="res://Horn/mega-horn-398654.mp3" id="4_sri5c"]
 [ext_resource type="Texture2D" uid="uid://bmj0a8io00r6t" path="res://Assets/misc/Untitled_design_16.png" id="5_sri5c"]
+[ext_resource type="FontFile" uid="uid://cvtwr3lmhys1v" path="res://Assets/fonts/atwriter.ttf" id="6_jqtd1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q45hi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -119,6 +120,9 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 6
 
+[sub_resource type="LabelSettings" id="LabelSettings_sb3pp"]
+font = ExtResource("6_jqtd1")
+
 [node name="Horn" type="Node3D"]
 script = ExtResource("1_n4tcf")
 
@@ -126,7 +130,7 @@ script = ExtResource("1_n4tcf")
 
 [node name="HornPlayer" type="Node3D" parent="."]
 script = ExtResource("3_aymlk")
-timeout_horn = 10.0
+timeout_horn = 15.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="HornPlayer"]
 environment = SubResource("Environment_p423y")
@@ -134,6 +138,7 @@ environment = SubResource("Environment_p423y")
 [node name="Player" type="AudioStreamPlayer3D" parent="HornPlayer"]
 unique_name_in_owner = true
 stream = ExtResource("4_sri5c")
+volume_db = 15.0
 bus = &"HornBus"
 
 [node name="Control" type="Control" parent="HornPlayer"]
@@ -317,3 +322,38 @@ text = "???"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.87320983)
 
 [node name="Sprite3D" type="Sprite3D" parent="HornPlayer"]
+
+[node name="Control2" type="Control" parent="HornPlayer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HornCooldownBar" type="ProgressBar" parent="HornPlayer/Control2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 576.0
+offset_right = 288.0
+offset_bottom = 50.0
+grow_horizontal = 2
+scale = Vector2(0.5, 1)
+show_percentage = false
+
+[node name="Label" type="Label" parent="HornPlayer/Control2/HornCooldownBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 10.0
+offset_right = -770.0
+offset_bottom = 31.0
+grow_horizontal = 2
+scale = Vector2(2, 1)
+text = "HORN TIMEOUT"
+label_settings = SubResource("LabelSettings_sb3pp")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

@@ -32,4 +32,5 @@ func _open_settings() -> void:
 
 func _go_to_main_menu() -> void:
 	Global.force_resume()
+	AudioManager.dialogue_player.stop()
 	get_tree().change_scene_to_packed(main_menu_scene)

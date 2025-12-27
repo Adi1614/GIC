@@ -6,6 +6,7 @@ var set_pos_down = true
 var timer_not_start = true
 var _last_can_see := false
 
+
 # -------------------------------------------------
 # NODES
 # -------------------------------------------------
@@ -15,6 +16,8 @@ var _last_can_see := false
 @onready var eye: Node3D = %Eye
 @onready var eye_ray: RayCast3D = %EyeRayCast
 @onready var timer = $"../Timer"
+@onready var scream = $Scream
+@onready var growl = $Growl
 
 
 # -------------------------------------------------
@@ -55,13 +58,19 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	Global.EnemyCall.connect(_start_chase)
 	Global.EnemyStun.connect(_start_stun)
+	Global.PlayerCaught.connect(_on_player_caught)
 	animation_player.animation_finished.connect(_on_scream_finished)
+	scream.pitch_scale = 1.0
+	growl.play()
 	_pick_random_roam_target()
 
 # -------------------------------------------------
 # PHYSICS LOOP
 # -------------------------------------------------
 func _physics_process(delta: float) -> void:
+	if not growl.playing:
+		growl.play()
+
 	if not can_move:
 		return
 	#_apply_gravity(delta)
@@ -116,6 +125,7 @@ func _apply_gravity(delta: float) -> void:
 # ROAM
 # -------------------------------------------------
 func _roam_state(delta: float) -> void:
+	player.trigger_fear(0.0)
 	if not set_pos_down:
 		$EnemyModel.position.y = -0.099
 		$EnemyModel.rotation_degrees.z = 0.0
@@ -132,8 +142,6 @@ func _roam_state(delta: float) -> void:
 	if nav.is_navigation_finished():
 		_pick_random_roam_target()
 		
-	
-	
 	
 	if is_player_in_view():
 		_start_chase()
@@ -159,6 +167,7 @@ func _start_chase():
 	
 	can_move = false
 	if animation_player.current_animation != "Scream":
+		scream.play()
 		animation_player.play("Scream")
 	
 	
@@ -169,6 +178,7 @@ func _on_scream_finished(x) -> void:
 
 func _chase_state(delta: float) -> void:
 	timer.stop()
+	player.trigger_fear(1.5)
 	if animation_player.current_animation != "CrawlRun ":
 		animation_player.play("CrawlRun ")
 	current_speed = chase_speed
@@ -189,7 +199,7 @@ func _chase_state(delta: float) -> void:
 		nav.target_position = last_seen_player_pos
 
 	if global_position.distance_to(player.global_position) <= catching_distance:
-		print("PLAYER CAUGHT")
+		Global.player_caught()
 		
 	if Global.enemy_near_table and Global.player_under_table:
 		_start_idle()
@@ -320,7 +330,13 @@ func _stun(delta):
 		print("Stunned")
 		animation_player.play_backwards("Death")
 		state = STATES.ROAM
-	
+
+func _on_player_caught():
+	can_move = false
+	nav.velocity = Vector3.ZERO
+
+	if animation_player.current_animation != "Idle ":
+		animation_player.play("Idle ")
 
 func _on_timer_timeout():
 	print("next pos")
